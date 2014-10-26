@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 // Define Post schema
 var _Post = new Schema({
+    title : String,
     author : Schema.Types.ObjectId,
     category : Schema.Types.ObjectId,
     content : String,
@@ -17,3 +18,13 @@ var _Post = new Schema({
         deleted : Boolean
     }]
 });
+
+var PostModel = mongoose.model('Post', _Post);
+
+exports.findOnePost = function(postId,callback){
+    var post = new PostModel({
+    });
+    post.find({}, function(){
+        callback();
+    });
+};
