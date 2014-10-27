@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
+var dateUtil = require('../dateUtil');
 var Schema = mongoose.Schema;
+
 
 // Define Post schema
 var _Post = new Schema({
@@ -21,10 +23,12 @@ var _Post = new Schema({
 
 var PostModel = mongoose.model('Post', _Post);
 
-exports.findOnePost = function(postId,callback){
-    var post = new PostModel({
-    });
-    post.find({}, function(){
-        callback();
+exports.findOnePost = function(postTimeId,callback){
+    PostModel.findOne({"createTime" : dateUtil.timestamp2Date(postTimeId)}, function(e, doc){
+        if(e) {
+            callback(e);
+        }else{
+            callback(null, doc);
+        }
     });
 };
