@@ -22,8 +22,14 @@ var UserModel = mongoose.model('User', _User);
 exports.insertUser = function(username,callback){
 	var user = new UserModel({
 		username: username,
-		email: "fengguiyushao@gmail.com"
-	});
+        nickname : "geziQiang",
+        phone: 13512220002,
+        registerTime:Date.now(),
+        lastLoginTime:Date.now(),
+        role:1,
+        deleted:0,
+        email: "fengguiyushao@gmail.com"
+    });
 	user.save(function(){
 		callback();
 	});
@@ -37,4 +43,14 @@ exports.findAllUser = function(callback){
 			callback(null,JSON.stringify(docs));
 		}
 	});
+};
+
+exports.findOneUser = function(username,callback){
+    UserModel.findOne({"username":username}, function(e, docs){
+        if(e) {
+            callback(e);
+        }else{
+            callback(null, docs);
+        }
+    });
 };

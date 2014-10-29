@@ -32,3 +32,19 @@ exports.findOnePost = function(postTimeId,callback){
         }
     });
 };
+
+exports.saveOnePost = function(title, callback){
+
+    var post = new PostModel({
+        title : title,
+        author : new Object("5451079bf412a19949123d60"),
+        content : "this is content, and very very long。",
+        viewCount : 3,
+        deleted : 0
+    });
+
+    post.save(function(e){
+        console.log(e);
+        callback();
+    })
+}
