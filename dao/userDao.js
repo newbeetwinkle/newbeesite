@@ -14,7 +14,7 @@ var _User = new Schema({
     userIP : String,
     lastLoginTime : { type: Date, default: Date.now },
     role : Number,  // 0-管理员；1-普通用户
-    deleted : Boolean
+    deleted : Boolean  // 0未删除，1已删除
 });
 
 var UserModel = mongoose.model('User', _User);

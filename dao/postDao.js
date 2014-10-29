@@ -12,12 +12,12 @@ var _Post = new Schema({
     viewCount : Number,
     createTime : { type: Date, default: Date.now },
     modifyTime : { type: Date, default: Date.now },
-    deleted : Boolean,
+    deleted : Boolean,     // 0未删除，1已删除
     comments : [{
         user : Schema.Types.ObjectId,
         content : String,
         commentTime : { type: Date, default: Date.now },
-        deleted : Boolean
+        deleted : Boolean     // 0未删除，1已删除
     }]
 });
 
