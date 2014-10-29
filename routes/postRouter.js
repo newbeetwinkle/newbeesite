@@ -8,7 +8,8 @@ router.get('/detail/:postId', function(req, res) {
       if(err){
           res.send("query " + req.params.postId + "failed!");
       } else{
-          res.send(JSON.stringify(data));
+          res.render('detail',{"post":data});
+          console.log(data);
       }
   });
 });
