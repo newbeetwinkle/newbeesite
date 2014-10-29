@@ -32,3 +32,13 @@ exports.findOnePost = function(postTimeId,callback){
         }
     });
 };
+
+exports.findAllPost = function(callback){
+    PostModel.find({}).sort({"createTime": -1}).find(function(e, doc){
+        if(e){
+            callback(e);
+        } else {
+            callback(null,doc);
+        }
+    })
+};
