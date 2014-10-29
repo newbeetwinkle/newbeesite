@@ -6,3 +6,7 @@ exports.queryOnePost = function(postId,callback){
 	postDao.findOnePost(postId,callback);
 };
 
+exports.queryAllPost = function(callback){
+	postDao.findAllPost(callback);
+}
+
