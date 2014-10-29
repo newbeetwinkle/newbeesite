@@ -8,3 +8,7 @@ exports.addUser = function(username,callback){
 exports.queryAllUser = function(callback){
 	userDao.findAllUser(callback);
 };
+
+exports.login = function(callback){
+	userDao.userLogin(callback);
+}

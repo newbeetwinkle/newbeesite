@@ -38,3 +38,13 @@ exports.findAllUser = function(callback){
 		}
 	});
 };
+//user login 
+exports.userLogin = function(username,password,callback){
+	UserModel.find({},{"username" : username , "password" : password} , function(e , docs){
+		if (e) {
+			callback(e);
+		} else {
+			callback(null,JSON.stringify(docs));
+		}
+	});
+}
