@@ -19,7 +19,7 @@ router.get('/login',function(req,res){
 
 router.post()('/login',function(req,res){
 	userService.login(req.body.username,req.body.password,function(){
-  	res.send("login " + req.body.username + " sueccess!");
+  	res.send("welcome : " + req.body.username );
   });
 });
 
