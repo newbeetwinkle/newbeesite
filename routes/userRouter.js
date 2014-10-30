@@ -32,7 +32,6 @@ router.get('/query/:username', function(req, res){
 		}
 	})
 })
-console.info("user>>>>>");
 router.get('',function(req,res){
 	console.info("userlogin");
 	res.render('login');
