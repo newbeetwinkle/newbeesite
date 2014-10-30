@@ -1,24 +1,25 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-<head>
-<title><%= title %> - Microblog</title>
-<link rel='stylesheet' href='stylesheets/bootstrap.css' />
-<link href="stylesheets/bootstrap.min.css" rel="stylesheet">
-<link href="stylesheets/main.css" rel="stylesheet">
-<div id="loginframe">
-	<div class="hero-unit">
-<h3>欢迎来到 NewBee!</h3>
-<p>Newbee Blog is your new begining......</p>
+<% layout('boilerplate') -%>
+
+<h1>NEWBEE BLOG</h1>
+
+<div class="row">
+<div class="col-xs-8">
+<ul class="post_list">
+<%for(var i = 0; i<posts.length;i++){ %>
+<li>
+<section class="well">
+<a href="/posts/detail/<%=posts[i].postId%>"><h1><%=posts[i].title %></h1></a>
 <p>
-<a class="btn btn-primary btn-large" href="/users/login">登录</a>
-<a class="btn btn-large" href="/users/register">立即注册</a>
+<%=posts[i].content %>
 </p>
+<time><%=posts[i].createTime %></time>
+</section>
+</li>
+<%
+}
+%>
+</ul>
+</div>
+<div class="col-xs-4">
 </div>
 </div>
-</body>
-<script src="js/jquery-1.11.1.min.js"></script>
-<script src="js/bootstrap.js"></script>
-</html>
-
-

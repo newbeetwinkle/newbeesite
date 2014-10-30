@@ -17,7 +17,7 @@ router.get('/login',function(req,res){
 	res.render('login');
 });
 
-router.post()('/login',function(req,res){
+router.post('/login',function(req,res){
 	userService.login(req.body.username,req.body.password,function(){
   	res.send("welcome : " + req.body.username );
   });

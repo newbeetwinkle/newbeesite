@@ -1,0 +1,36 @@
+<% layout('boilerplate') -%>
+
+<h1><%=post.title %></h1>
+<span>作者：<%=post.author.nickname%></span>
+<h3><label type="button" class="label label-primary">浏览数：<%=post.viewCount%></label>  </h5>
+
+<ul class="post_list">
+<li>
+<div class="well">
+<p>
+<%=post.content %>
+</p>
+<time><%=post.createTime %></time>
+</div>
+</li>
+</ul>
+<% if(post.comments == undefined || post.comments.length == 0 ) {%>
+    没人评论，快来抢沙发！
+<% } else { %>
+    <ul class="post_list">
+        <%for(var i = 0; i<post.comments.length;i++){ %>
+        <li>
+            <%=post.comments[i].user.nickname %> :
+            <img src="">
+            <div class="well">
+                <p>
+                    <%=post.comments[i].content %>
+                </p>
+                <time><%=post.comments[i].commentTime %></time>
+            </div>
+        </li>
+        <%
+        }
+        %>
+    </ul>
+<% } %>

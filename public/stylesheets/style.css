@@ -1,8 +1,58 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding-top: 70px;
+  /* padding-bottom: 30px; */
+  background-color:#ccc;
 }
 
-a {
-  color: #00B7FF;
+/*首页列表样式*/
+.post_list{
+	padding-left: 0px;
+}
+.post_list li{
+	list-style:none;
+	margin: 10px 0;
+	padding-left:0;
+	text-indent: 0;
+}
+.post_list li a{
+	display:block; 
+	/*padding:10px 0 10px 10px; */
+	padding:5px 0 5px 10px;
+	text-shadow:none;
+	border-radius:2px;
+	cursor:pointer;
+}
+.post_list li a {
+	color: #333; 
+	font-size:20px;
+	/*background:#ededed;*/
+	cursor:pointer;
+	font-family: "Open Sans",Arial,"Hiragino Sans GB","Microsoft YaHei","微软雅黑","STHeiti","WenQuanYi Micro Hei",SimSun,sans-serif;
+} 
+.post_list li a:hover {
+	/*color: #c5000c; */
+	color:#0d9ba9;
+	cursor:pointer;
+	text-decoration:none;
+}
+.post_list p{
+	word-break:break-all;
+	 text-indent: 2em;
+	 font-size: 20px;
+	 font-family: "Open Sans",Arial,"Hiragino Sans GB","Microsoft YaHei","微软雅黑","STHeiti","WenQuanYi Micro Hei",SimSun,sans-serif;
+}
+.post_list time{
+	font: 500 20px/1.8 Georgia, Times, 'Hiragino Sans GB', \u5B8B\u4F53, serif;
+}
+footer {
+	margin-top: 20px;
+	padding-top: 20px;
+	padding-bottom: 30px;
+	font-size: 13px;
+}
+footer a {
+	color: #666;
+}
+footer a:hover {
+	color: #444;
 }
