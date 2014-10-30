@@ -1,4 +1,5 @@
 var postDao = require('../dao/postDao');
+var userDao = require('../dao/userDao');
 
 /* Query one post info */
 exports.queryOnePost = function(postId,callback){
@@ -8,5 +9,4 @@ exports.queryOnePost = function(postId,callback){
 exports.queryAllPost = function(callback){
 	postDao.findAllPost(callback);
 }
-
 
