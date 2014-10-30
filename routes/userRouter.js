@@ -4,13 +4,21 @@ var userService = require('../service/userService');
 
 /* GET users listing. */
 router.get('/register',function(req,res){
-	res.render('login');
+	res.render('register');
 });
 
 router.post('/register', function(req, res) {
   userService.addUser(req.body.username,function(){
   	res.send("register " + req.body.username + " sueccess!");
   });
+});
+
+router.get('/login',function(req,res){
+	res.render('login');
+});
+
+router.post()('/login',function(req,res){
+	userService.login()
 });
 
 router.get('/query/:username', function(req, res){

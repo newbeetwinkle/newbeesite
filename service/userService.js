@@ -9,6 +9,6 @@ exports.queryAllUser = function(callback){
 	userDao.findAllUser(callback);
 };
 
-exports.login = function(callback){
-	userDao.userLogin(callback);
+exports.login = function(username,password,callback){
+	userDao.userLogin(username,password,callback);
 }
