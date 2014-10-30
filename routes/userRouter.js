@@ -8,7 +8,7 @@ router.get('/register',function(req,res){
 });
 
 router.post('/register', function(req, res) {
-  userService.addUser(req.body.username,function(){
+  userService.addUser(req.body.username,req.body.password,function(){
   	res.send("register " + req.body.username + " sueccess!");
   });
 });
@@ -18,7 +18,9 @@ router.get('/login',function(req,res){
 });
 
 router.post()('/login',function(req,res){
-	userService.login()
+	userService.login(req.body.username,req.body.password,function(){
+  	res.send("login " + req.body.username + " sueccess!");
+  });
 });
 
 router.get('/query/:username', function(req, res){
