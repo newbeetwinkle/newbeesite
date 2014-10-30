@@ -1,0 +1,23 @@
+<% layout('boilerplate') -%>
+
+<div class="row">
+<div class="col-xs-8">
+<ul class="post_list">
+<%for(var i = 0; i<posts.length;i++){ %>
+<li>
+<div class="well">
+<a href="/posts/detail/<%=posts[i].postId%>"><h3><%=posts[i].title %></h3></a>
+<p>
+<%=posts[i].content %>
+</p>
+<time><%=posts[i].createTime %></time>
+</div>
+</li>
+<%
+}
+%>
+</ul>
+</div>
+<div class="col-xs-4">
+</div>
+</div>
