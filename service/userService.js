@@ -1,7 +1,7 @@
 var userDao = require('../dao/userDao');
 
-exports.addUser = function(username,callback){
-	userDao.insertUser(username,callback);
+exports.addUser = function(username,password,callback){
+	userDao.insertUser(username,password,callback);
 };
 
 
