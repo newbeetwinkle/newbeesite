@@ -6,6 +6,7 @@ var _User = new Schema({
     nickname : String,
     username : String,
     password : String,
+    emailMd5 : String,
     email : String,
     phone : String,
     address : String,

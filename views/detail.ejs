@@ -1,8 +1,8 @@
 <% layout('boilerplate') -%>
 
 <h1><%=post.title %></h1>
-<span>作者：<%=post.author.nickname%></span>
-<h3><label type="button" class="label label-primary">浏览数：<%=post.viewCount%></label>  </h5>
+<span>作者：<%=post.author.nickname%></span> <img src=<%="http://www.gravatar.com/avatar/"+post.author.emailMd5 + "?s=25"%>>
+<h5><label type="button" class="label label-primary">浏览数：<%=post.viewCount%></label>  </h5>
 
 <ul class="post_list">
 <li>
@@ -20,8 +20,10 @@
     <ul class="post_list">
         <%for(var i = 0; i<post.comments.length;i++){ %>
         <li>
-            <%=post.comments[i].user.nickname %> :
-            <img src="">
+            <div>
+                <img src=<%="http://www.gravatar.com/avatar/"+post.author.emailMd5 + "?s=80"%>>
+                <%=post.comments[i].user.nickname %> :
+            </div>
             <div class="well">
                 <p>
                     <%=post.comments[i].content %>
@@ -34,3 +36,15 @@
         %>
     </ul>
 <% } %>
+
+<div class="input-group">
+    <input id="comment_input" type="text" class="form-control">
+      <span class="input-group-btn">
+        <button onclick="submit_comment(<%=post.postId%>);" class="btn btn-default" type="button">发表评论</button>
+      </span>
+</div>
+
+<script src="/javascripts/detail_action.js"></script>
+
+
+
