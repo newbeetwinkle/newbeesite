@@ -12,12 +12,13 @@ var _Post = new Schema({
     postId : Number,
     createTime : { type: Date, default: Date.now },
     modifyTime : { type: Date, default: Date.now },
-    deleted : Boolean,     // 0未删除，1已删除
+    deleted : { type: Boolean, default: false },
     comments : [{
+        commentId : String, // postId+timestamp
         user :{ type: Schema.Types.ObjectId, ref: 'User' },
         content : String,
         commentTime : { type: Date, default: Date.now },
-        deleted : Boolean     // 0未删除，1已删除
+        deleted : { type: Boolean, default: false }
     }]
 });
 
@@ -25,7 +26,8 @@ var PostModel = mongoose.model('Post', _Post);
 
 exports.findOnePost = function(postId,callback){
 
-    PostModel.findOne({"postId" : postId})
+    // query, update, options
+    PostModel.findOneAndUpdate({postId : postId}, {$inc : {viewCount : 1}}, {new : true})
         .populate('author')
         .populate('comments.user')
         .exec(function (err, data) {
@@ -38,7 +40,7 @@ exports.findOnePost = function(postId,callback){
 };
 
 exports.findAllPost = function(callback){
-    PostModel.find({}).sort({"createTime": -1}).find(function(e, doc){
+    PostModel.find({}).sort({createTime: -1}).find(function(e, doc){
         if(e){
             callback(e);
         } else {
@@ -47,12 +49,23 @@ exports.findAllPost = function(callback){
     })
 };
 
-exports.findAllPost = function(callback){
-    PostModel.find({}).sort({"createTime": -1}).find(function(e, doc){
-        if(e){
-            callback(e);
-        } else {
-            callback(null,doc);
-        }
+/* Add comment */
+exports.addComment = function(postId, postContent, user, callback){
+    var commentTime = Date.now();
+    var commentId = postId + '' + commentTime;
+    PostModel.findOneAndUpdate({postId : postId},
+        {$push : {comments : {commentId : commentId, user : user._id, content : postContent, commentTime : commentTime}}},
+        {new : true},
+        function (err, data) {
+            if(err) {
+                callback(err);
+            }else{
+                var result = {};
+                result.nickname = user.nickname;
+                result.emailMd5 = user.emailMd5;
+                result.content = postContent;
+                result.time = commentTime;
+                callback(null, result);
+            }
     })
 };

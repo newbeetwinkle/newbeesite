@@ -6,6 +6,7 @@ var _User = new Schema({
     nickname : String,
     username : String,
     password : String,
+    emailMd5 : String,
     email : String,
     phone : String,
     address : String,
@@ -16,19 +17,17 @@ var _User = new Schema({
     deleted : Boolean  // 0未删除，1已删除
 });
 
-var UserModel = mongoose.model('User', _User);
+var UserModel = mongoose.model('users', _User);
 
-exports.insertUser = function(username,callback){
+exports.insertUser = function(username,password,nickname,phone,address,email,callback){
 	var user = new UserModel({
 		username: username,
-        nickname : "geziQiang",
-        phone: 13512220002,
-        registerTime:Date.now(),
-        lastLoginTime:Date.now(),
-        role:1,
-        deleted:0,
-        email: "fengguiyushao@gmail.com"
-    });
+		password:password,
+	   	nickname:nickname,
+	   	phone:phone,
+	   	address:address,
+	   	email:email,
+	    });
 	user.save(function(){
 		callback();
 	});
@@ -45,17 +44,17 @@ exports.findAllUser = function(callback){
 };
 
 exports.userLogin = function(username,password,callback){
-	UserModel.find({},{"username" : username , "password" : password} , function(e , docs){
-		if (e) {
-			callback(e);
+	UserModel.findOne({"username": username , "password": password} , function(err , docs){
+		if (docs) {
+			callback(err,docs);
 		} else {
-			callback(null,JSON.stringify(docs));
+			callback(err,null);
 		}
 	});
 };
 
 exports.findOneUser = function(username,callback){
-    UserModel.findOne({"username":username}, function(e, docs){
+    UserModel.findOne({username:username}, function(e, docs){
         if(e) {
             callback(e);
         }else{
