@@ -1,0 +1,111 @@
+body {
+	font-family: "Open Sans",Arial,"Hiragino Sans GB","Microsoft YaHei","微软雅黑","STHeiti","WenQuanYi Micro Hei",SimSun,sans-serif;
+}
+
+/* Header Section
+=================================================================== */
+.navbar {
+	margin-bottom: 0px;
+	border: none;
+}
+
+.navbar-inner {
+	margin-bottom: 0px;
+  	min-height: 50px;
+  	padding-right: 20px;
+  	padding-left: 20px;	
+	background: #080808;
+	filter: none;
+	text-shadow: 1px 1px 1px #0a0c0e;
+	border: none;
+	color: #fff;
+  	-webkit-border-radius: 0px;
+       -moz-border-radius: 0px;
+          	border-radius: 0px;
+  	*zoom: 1;
+	border-bottom: 1px solid #38383D; /* rgba(0, 0, 0, 0.05); */
+	
+}
+
+.navbar-inner a {
+	color: #7b7b7b;
+	text-shadow: 0 -1px 1px #0b090a;
+}
+
+.navbar-inner a i {
+	margin-top: 2px;
+}
+
+.navbar-inner a:hover i {
+	opacity: .8;
+	filter: alpha(opacity=80);
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+}
+
+.brand img {
+	margin: -12px 0px -5px 0px;
+}
+
+a.brand span {
+	color: #fff;
+	text-shadow: none;
+}
+
+.header-nav {
+	padding: 0px;
+	color: #fff !important;
+	background: #000 !important;
+}
+
+.header-nav .nav {
+	margin: 0px;
+}
+.header-nav .btn {
+  	display: inline-block;
+  	padding: 21px 20px;
+	margin-top: 0px;
+  	margin-left: 0px;
+  	font-size: 14px;
+  	line-height: 20px;
+  	text-align: center;
+  	text-shadow: none;
+  	vertical-align: middle;
+  	cursor: pointer;
+  	background: transparent;
+  	border-left: none;
+	border-right: none;
+	border-top: 0px;
+	border-bottom: 0px;
+  	-webkit-border-radius: 0px;
+       -moz-border-radius: 0px;
+          	border-radius: 0px;
+  	-webkit-box-shadow: none !important;
+       -moz-box-shadow: none !important;
+          	box-shadow: none !important;
+}
+
+.header-nav a.btn  {
+	color: #fff !important;
+	text-shadow: none !important;
+	padding: 10px 25px !important;
+}
+
+.header-nav .btn .caret {
+	border-top-color: #fff !important;
+	border-bottom-color: #fff !important;
+}
+
+.header-nav .btn:hover .caret {
+	border-top-color: #fff !important;
+	border-bottom-color: #fff !important;
+}
+a.navbar-brand {
+	display: block;
+	float: left;
+	padding: 15px 20px 15px;
+	margin-left: -20px;
+	font-size: 20px;
+	font-weight: 200;
+	color: #fff;
+	text-shadow: none;
+}
