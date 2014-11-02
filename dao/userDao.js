@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-// require('./db')
 var Schema = mongoose.Schema;
 
 // Define User schema
@@ -40,6 +39,16 @@ exports.findAllUser = function(callback){
 		if(e) {
 			callback(e);
 		}else{
+			callback(null,JSON.stringify(docs));
+		}
+	});
+};
+
+exports.userLogin = function(username,password,callback){
+	UserModel.find({},{"username" : username , "password" : password} , function(e , docs){
+		if (e) {
+			callback(e);
+		} else {
 			callback(null,JSON.stringify(docs));
 		}
 	});

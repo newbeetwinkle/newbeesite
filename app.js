@@ -10,6 +10,7 @@ var engine = require('ejs-locals')
 var index = require('./routes/index');
 var users = require('./routes/userRouter');
 var posts = require('./routes/postRouter');
+//var register = require('./routes/registerRouter');
 
 require('./dao/db');
 
@@ -34,6 +35,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 app.use('/posts', posts);
+//app.use('/register',register);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
