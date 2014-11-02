@@ -4,12 +4,12 @@ var userService = require('../service/userService');
 var postService = require('../service/postService');
 
 /* GET users listing. */
-router.get('/register',checkLogin);
+// router.get('/register',checkLogin);
 router.get('/register',function(req,res){
 	res.render('register');
 });
 
-router.post('/register',checkLogin);
+// router.post('/register',checkLogin);
 router.post('/register', function(req, res) {
 	if (req.body['confirmPassword'] != req.body['password']) {
 		// req.flash('error','两次输入的密码不一致！');
@@ -40,25 +40,11 @@ router.post('/login',function(req,res){
 	userService.login(req.body.username,req.body.password,function(err ,data){	
 		if (data) {
 			// res.send(req.body.username+"login successful!");
-			req.session = req.body.username;
+			req.session.user = req.body.username;
 			res.redirect('/');
 		} else {
 			res.send(req.body.username+"login failed!Please cotact administartor at 110");
-		}
-		//登录跳转到首页（待完成）
-		// if (err) {
-		// 	res.send(req.body.username+"login failed!Please cotact administartor at 110");
-		// }else {
-		// 		postService.queryAllPost(function(e, posts){
-		// 			posts.forEach(function(element, index, array){
-		// 				if(element.content && element.content.length > 100){
-		// 					element.content = element.content.substring(0, 100) + "...";
-		// 				}
-		// 			});
-					
-		// 		});
-		// 		res.render('index',{"posts":posts});			
-		// };
+		}		
 	})	
   });
 
@@ -74,14 +60,16 @@ router.get('/queryAllUser', function(req, res){
 })
 
 function checkLogin(req,res,next){
-	if (!req.session) {
+	console.info(req.session);
+	if (!req.session.user) {
 		return res.redirect('/users/login');
 	} 
 	next();
 }
 
 function checkNotLogin(req,res,next){
-	if (req.session) {
+	console.info(req.session);
+	if (req.session.user) {
 		return res.redirect('/');
 	} 
 	next();
