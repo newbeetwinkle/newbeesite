@@ -1,7 +1,7 @@
 var userDao = require('../dao/userDao');
 
-exports.addUser = function(username,password,callback){
-	userDao.insertUser(username,password,callback);
+exports.addUser = function(username,password,nickname,phone,address,email,callback){
+	userDao.insertUser(username,password,nickname,phone,address,email,callback);
 };
 
 
@@ -14,5 +14,5 @@ exports.login = function(username,password,callback){
 };
 
 exports.findOneUser = function(username,callback){
-    userDao.findOneUser(username,callback);
+    	userDao.findOneUser(username,callback);
 };
