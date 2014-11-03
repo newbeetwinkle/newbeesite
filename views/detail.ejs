@@ -10,7 +10,7 @@
 <p>
 <%=post.content %>
 </p>
-<time><%=post.createTime %></time>
+<time><%=dateFormat(post.createTime) %></time>
 </div>
 </li>
 </ul>
@@ -28,7 +28,7 @@
                 <p>
                     <%=post.comments[i].content %>
                 </p>
-                <time><%=post.comments[i].commentTime %></time>
+                <time><%=dateFormat(post.comments[i].commentTime) %></time>
             </div>
         </li>
         <%

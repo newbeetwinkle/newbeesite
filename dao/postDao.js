@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
+var Utils = require('../Utils.js');
 var Schema = mongoose.Schema;
+
 
 
 // Define Post schema
@@ -30,6 +32,7 @@ exports.findOnePost = function(postId,callback){
     PostModel.findOneAndUpdate({postId : postId}, {$inc : {viewCount : 1}}, {new : true})
         .populate('author')
         .populate('comments.user')
+//        .slice('comments', 2)
         .exec(function (err, data) {
             if(err) {
                 callback(err);
@@ -64,7 +67,7 @@ exports.addComment = function(postId, postContent, user, callback){
                 result.nickname = user.nickname;
                 result.emailMd5 = user.emailMd5;
                 result.content = postContent;
-                result.time = commentTime;
+                result.time = Utils.dateFormat(commentTime);
                 callback(null, result);
             }
     })
