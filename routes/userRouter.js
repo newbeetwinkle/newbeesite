@@ -40,7 +40,7 @@ router.post('/login',function(req,res){
 	userService.login(req.body.username,req.body.password,function(err ,data){	
 		if (data) {
 			// res.send(req.body.username+"login successful!");
-			req.session.user = req.body.username;
+			// req.session.user = req.body.username;
 			res.redirect('/');
 		} else {
 			res.send(req.body.username+"login failed!Please cotact administartor at 110");
@@ -60,18 +60,18 @@ router.get('/queryAllUser', function(req, res){
 })
 
 function checkLogin(req,res,next){
-	console.info(req.session);
-	if (!req.session.user) {
-		return res.redirect('/users/login');
-	} 
+	// console.info(req.session);
+	// if (!req.session.user) {
+	// 	return res.redirect('/users/login');
+	// } 
 	next();
 }
 
 function checkNotLogin(req,res,next){
-	console.info(req.session);
-	if (req.session.user) {
-		return res.redirect('/');
-	} 
+	// console.info(req.session);
+	// if (req.session.user) {
+	// 	return res.redirect('/');
+	// } 
 	next();
 }
 

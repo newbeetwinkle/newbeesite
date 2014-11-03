@@ -18,6 +18,6 @@
     "ejs-locals": "1.0.2",
     "middleware": "^1.0.0",
     "express-session": "^1.9.1",
-    "ueditor": "~1.0.0"
+    "mongoose-auto-increment": "~3.0.8"
   }
 }

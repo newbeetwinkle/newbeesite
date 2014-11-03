@@ -10,6 +10,7 @@ var engine = require('ejs-locals')
 var index = require('./routes/index');
 var users = require('./routes/userRouter');
 var posts = require('./routes/postRouter');
+var admin = require('./routes/admin');
 //var register = require('./routes/registerRouter');
 
 require('./dao/db');
@@ -31,13 +32,13 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.session({secret : "123456"}));
+// app.use(express.session({secret : "123456"}));
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 app.use('/', index);
 app.use('/users', users);
 app.use('/posts', posts);
+app.use('/admin',admin);
 //app.use('/register',register);
 
 

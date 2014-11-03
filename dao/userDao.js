@@ -17,7 +17,7 @@ var _User = new Schema({
     deleted : Boolean  // 0未删除，1已删除
 });
 
-var UserModel = mongoose.model('users', _User);
+var UserModel = mongoose.model('User', _User);
 
 exports.insertUser = function(username,password,nickname,phone,address,email,callback){
 	var user = new UserModel({

@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
+var autoIncrement = require('mongoose-auto-increment');
+require('./db');
 
 // Define Post schema
 var _Post = new Schema({
@@ -22,6 +23,11 @@ var _Post = new Schema({
     }]
 });
 
+_Post.plugin(autoIncrement.plugin, {
+    model:'Post',
+    field:'postId',
+    startAt:10000
+});
 var PostModel = mongoose.model('Post', _Post);
 
 exports.findOnePost = function(postId,callback){
@@ -69,3 +75,14 @@ exports.addComment = function(postId, postContent, user, callback){
             }
     })
 };
+
+exports.addPost = function(postObject,callback){
+        var post = new PostModel({
+            title : postObject.title,
+            content : postObject.content,
+            author : postObject.author
+        });
+    post.save(function(){
+        callback();
+    });
+}
