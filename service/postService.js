@@ -1,5 +1,6 @@
 var postDao = require('../dao/postDao');
 var userDao = require('../dao/userDao');
+var commentDao = require('../dao/commentDao');
 
 
 /* Query one post info */
@@ -12,12 +13,15 @@ exports.queryAllPost = function(callback){
 }
 
 exports.saveComment = function(postId, postContent, callback){
-
     userDao.findOneUser("FrankSu",function(err, doc){
         if(err) {
             callback(err);
         }else{
-            postDao.addComment(postId, postContent, doc, callback);
+            commentDao.addComment(postId, postContent, doc, callback);
         }
     });
+}
+
+exports.queryComments = function(postId, index, count, callback){
+    commentDao.findComments(postId, index, count, callback);
 }

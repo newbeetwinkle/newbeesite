@@ -14,21 +14,21 @@
 </div>
 </li>
 </ul>
-<% if(post.comments == undefined || post.comments.length == 0 ) {%>
+<% if(comments == undefined || comments.length == 0 ) {%>
     没人评论，快来抢沙发！
 <% } else { %>
     <ul class="post_list">
-        <%for(var i = 0; i<post.comments.length;i++){ %>
+        <%for(var i = 0; i<comments.length;i++){ %>
         <li>
             <div>
-                <img src=<%="http://www.gravatar.com/avatar/"+post.author.emailMd5 + "?s=80"%>>
-                <%=post.comments[i].user.nickname %> :
+                <img src=<%="http://www.gravatar.com/avatar/"+comments[i].user.emailMd5 + "?s=80"%>>
+                <%=comments[i].user.nickname %> :
             </div>
             <div class="well">
                 <p>
-                    <%=post.comments[i].content %>
+                    <%=comments[i].content %>
                 </p>
-                <time><%=dateFormat(post.comments[i].commentTime) %></time>
+                <time><%=dateFormat(comments[i].commentTime) %></time>
             </div>
         </li>
         <%
