@@ -19,7 +19,7 @@
     "middleware": "^1.0.0",
     "express-session": "^1.9.1",
     "mongoose-auto-increment": "~3.0.8",
-    "ueditor": "~1.0.0",
+    // "ueditor": "~1.0.0",
     "connect": "^3.3.2"
   }
 }
