@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var userService = require('../service/userService');
 var postService = require('../service/postService');
+var util = require('../utils');
 
 /* GET users listing. */
 // router.get('/register',checkLogin);
@@ -30,12 +31,11 @@ router.post('/register', function(req, res) {
 	}
 });
 
-router.get('/login',checkNotLogin);
+router.all('/login',util.checkNotLogin);
 router.get('/login',function(req,res){
 	res.render('login');
 });
 
-router.post('/login',checkNotLogin);
 router.post('/login',function(req,res){
 	userService.login(req.body.username,req.body.password,function(err ,data){	
 		if (data) {
@@ -48,7 +48,7 @@ router.post('/login',function(req,res){
 	})	
   });
 
-router.get('/queryAllUser', checkLogin);
+router.get('/queryAllUser', util.checkLogin);
 router.get('/queryAllUser', function(req, res){
 	userService.queryAllUser(function(err, data){
 		if(err){
@@ -58,22 +58,6 @@ router.get('/queryAllUser', function(req, res){
 		}
 	})
 })
-
-function checkLogin(req,res,next){
-	console.info(req.session.user);
-	if (!req.session.user) {
-		return res.redirect('/users/login');
-	} 
-	next();
-}
-
-function checkNotLogin(req,res,next){
-	console.info(req.session.user);
-	if (req.session.user) {
-		return res.redirect('/');
-	} 
-	next();
-}
 
 router.get('/query/:username', function(req, res){
 	userService.queryAllUser(function(err, data){

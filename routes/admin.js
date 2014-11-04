@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var adminService = require('../service/adminService');
+var util = require('../utils');
 
 /* GET admin home page. */
+router.all('/.*', util.checkLogin);
 router.get('/', function(req, res) {
 	res.render('admin',{});
 	// postService.queryAllPost(function(e, posts){

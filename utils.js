@@ -21,3 +21,18 @@ exports.md5 = function(data) {
     return crypto.createHash('md5').update(data).digest('hex').toLowerCase();
 }
 
+exports.checkLogin =  function(req,res,next){
+	console.info(req.session.user);
+	if (!req.session.user) {
+		return res.redirect('/users/login');
+	} 
+	next();
+}
+
+exports.checkNotLogin = function(req,res,next){
+	console.info(req.session.user);
+	if (req.session.user) {
+		return res.redirect('/');
+	} 
+	next();
+}
