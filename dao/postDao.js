@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var Utils = require('../Utils.js');
 var Schema = mongoose.Schema;
 var autoIncrement = require('mongoose-auto-increment');
 require('./db');
@@ -14,13 +15,6 @@ var _Post = new Schema({
     createTime : { type: Date, default: Date.now },
     modifyTime : { type: Date, default: Date.now },
     deleted : { type: Boolean, default: false },
-    comments : [{
-        commentId : String, // postId+timestamp
-        user :{ type: Schema.Types.ObjectId, ref: 'User' },
-        content : String,
-        commentTime : { type: Date, default: Date.now },
-        deleted : { type: Boolean, default: false }
-    }]
 });
 
 _Post.plugin(autoIncrement.plugin, {
@@ -35,7 +29,6 @@ exports.findOnePost = function(postId,callback){
     // query, update, options
     PostModel.findOneAndUpdate({postId : postId}, {$inc : {viewCount : 1}}, {new : true})
         .populate('author')
-        .populate('comments.user')
         .exec(function (err, data) {
             if(err) {
                 callback(err);
