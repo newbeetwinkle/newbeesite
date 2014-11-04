@@ -6,6 +6,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var engine = require('ejs-locals')
+var connect = require('connect');
+var session = require('express-session');
+var MongoStore = require('connect-mongo');
+
 
 var index = require('./routes/index');
 var users = require('./routes/userRouter');
@@ -28,12 +32,20 @@ app.set('port', process.env.PORT || 3000);
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 
 
+
+app.use(cookieParser());
+app.use(session({secret : "123456"
+    // ,
+    // store:new MongoStore({
+    //     db:settings.db
+    // })
+}));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-// app.use(express.session({secret : "123456"}));
+
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use('/', index);
 app.use('/users', users);
