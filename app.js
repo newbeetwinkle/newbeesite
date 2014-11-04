@@ -8,7 +8,6 @@ var bodyParser = require('body-parser');
 var engine = require('ejs-locals')
 var connect = require('connect');
 var session = require('express-session');
-var MongoStore = require('connect-mongo');
 
 
 var index = require('./routes/index');
@@ -34,12 +33,7 @@ app.set('port', process.env.PORT || 3000);
 
 
 app.use(cookieParser());
-app.use(session({secret : "123456"
-    // ,
-    // store:new MongoStore({
-    //     db:settings.db
-    // })
-}));
+app.use(session({secret : "123456", saveUninitialized: true, resave: true}));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
