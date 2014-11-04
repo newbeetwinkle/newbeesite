@@ -10,32 +10,10 @@
 <p>
 <%-post.content %>
 </p>
-<time><%=post.createTime %></time>
+<time><%=dateFormat(post.createTime) %></time>
 </div>
 </li>
 </ul>
-<% if(post.comments == undefined || post.comments.length == 0 ) {%>
-    没人评论，快来抢沙发！
-<% } else { %>
-    <ul class="post_list">
-        <%for(var i = 0; i<post.comments.length;i++){ %>
-        <li>
-            <div>
-                <img src=<%="http://www.gravatar.com/avatar/"+post.author.emailMd5 + "?s=80"%>>
-                <%=post.comments[i].user.nickname %> :
-            </div>
-            <div class="well">
-                <p>
-                    <%=post.comments[i].content %>
-                </p>
-                <time><%=post.comments[i].commentTime %></time>
-            </div>
-        </li>
-        <%
-        }
-        %>
-    </ul>
-<% } %>
 
 <div class="input-group">
     <input id="comment_input" type="text" class="form-control">
@@ -44,6 +22,37 @@
       </span>
 </div>
 
+<% if(comments == undefined || comments.length == 0 ) {%>
+    没人评论，快来抢沙发！
+<% } else { %>
+    <ul class="post_list">
+        <span>共有 <%=post.commentsCount%> 条评论</span>
+        <%for(var i = 0; i<comments.length;i++){ %>
+        <li>
+            <div>
+                <img src=<%="http://www.gravatar.com/avatar/"+comments[i].user.emailMd5 + "?s=80"%>>
+                <%=comments[i].user.nickname %> :
+            </div>
+            <div class="well">
+                <p>
+                    <%=comments[i].content %>
+                </p>
+                <time><%=dateFormat(comments[i].commentTime) %></time>
+            </div>
+        </li>
+        <% } %>
+    </ul>
+<% } %>
+
+<nav>
+    <ul class="pagination">
+        <li><a href="#">&laquo;</a></li>
+        <%for(var i = 0; i<pageCount;i++){%>
+            <li <%if(pageNow==i+1){%>class="active"<%}%>><a href="/posts/<%=post.postId%>?pageNow=<%=i+1%>"><%=i+1%></a></li>
+        <% } %>
+        <li><a href="#">&raquo;</a></li>
+    </ul>
+</nav>
 <script src="/javascripts/detail_action.js"></script>
 
 

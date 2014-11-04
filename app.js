@@ -6,14 +6,15 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var engine = require('ejs-locals')
-var connect = require('connect');
 var session = require('express-session');
 
 
 var index = require('./routes/index');
 var users = require('./routes/userRouter');
 var posts = require('./routes/postRouter');
+var Utils = require('./Utils.js');
 var admin = require('./routes/admin');
+
 //var register = require('./routes/registerRouter');
 
 require('./dao/db');
@@ -45,9 +46,8 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/posts', posts);
 app.use('/admin',admin);
-//app.use('/register',register);
 
-
+app.locals.dateFormat= Utils.dateFormat;
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

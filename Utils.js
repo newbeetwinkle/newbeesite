@@ -12,6 +12,10 @@ exports.date2Timestamp = function(date){
     return new moment(date).valueOf();
 };
 
+exports.dateFormat = function (date) {
+    return moment(date).format('YYYY年MM月DD日 hh:mm:ss');
+}
+
 /**
  * MD5加密
  * @param data
