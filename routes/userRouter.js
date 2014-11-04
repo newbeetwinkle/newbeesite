@@ -39,8 +39,8 @@ router.get('/login',function(req,res){
 router.post('/login',function(req,res){
 	userService.login(req.body.username,req.body.password,function(err ,data){	
 		if (data) {
-			res.send(req.body.username+"login successful!");
-			req.session.user = req.body.username;
+			// res.send(req.body.username+"login successful!");
+			req.session.user = data;
 			res.redirect('/');
 		} else {
 			res.send(req.body.username+"login failed!Please cotact administartor at 110");

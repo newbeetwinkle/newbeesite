@@ -21,15 +21,9 @@ exports.queryAllPost = function(callback){
 	postDao.findAllPost(callback);
 }
 
-exports.saveComment = function(postId, postContent, callback){
-    userDao.findOneUser("FrankSu",function(err, doc){
-        if(err) {
-            callback(err);
-        }else{
-            commentDao.addComment(postId, postContent, doc, callback);
-        }
-    });
-}
+exports.saveComment = function(postId, postContent, user, callback){
+        commentDao.addComment(postId, postContent, user, callback);
+};
 
 exports.queryComments = function(postId, index, count, callback){
     commentDao.findComments(postId, index, count, callback);

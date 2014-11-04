@@ -4,7 +4,7 @@ var adminService = require('../service/adminService');
 var util = require('../utils');
 
 /* GET admin home page. */
-router.all('/.*', util.checkLogin);
+router.use(util.checkLogin);
 router.get('/', function(req, res) {
 	res.render('admin',{});
 	// postService.queryAllPost(function(e, posts){
@@ -22,7 +22,7 @@ router.get('/post',function(req, res) {
 });
 
 router.post('/post',function(req, res) {
-	adminService.savePost(req.body.content,function(err, success){
+	adminService.savePost(req.body.content, req.session.user._id, function(err, success){
 		if(success){
 			res.redirect('/admin');
 		} else{

@@ -21,11 +21,6 @@ router.get('/:postId?', function(req, res) {
                   res.send("query comments failed!");
               }else{
                   var pageCount = 1;
-//                  if (post.commentsCount % Constant.ONE_PAGE_COMMENT_COUNT != 0) {
-//                      pageCount = parseInt(post.commentsCount / Constant.ONE_PAGE_COMMENT_COUNT) + 1;
-//                  } else {
-//                      pageCount = post.commentsCount / Constant.ONE_PAGE_COMMENT_COUNT;
-//                  }
                   pageCount = post.commentsCount / Constant.ONE_PAGE_COMMENT_COUNT;
 
                   res.render('detail',{"post":post, "comments":comment, "pageNow":pageNow, "pageCount":pageCount });
@@ -39,7 +34,7 @@ router.get('/:postId?', function(req, res) {
 
 /* POST to save one comment info. */
 router.post('/comment', function(req, res) {
-    postService.saveComment(req.body.postId, req.body.postContent,function(err, comment, user){
+    postService.saveComment(req.body.postId, req.body.postContent, req.session.user, function(err, comment, user){
         var result  = {};
         result['comment'] = comment;
         result['user'] = user;

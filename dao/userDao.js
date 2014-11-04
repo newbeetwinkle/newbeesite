@@ -44,7 +44,7 @@ exports.findAllUser = function(callback){
 };
 
 exports.userLogin = function(username,password,callback){
-	UserModel.findOne({"username": username , "password": password} , function(err , docs){
+	UserModel.findOne({"username": username , "password": password}, {"username" : 1, "nickname" : 1, "_id" : 1, "emailMd5" : 1} , function(err , docs){
 		if (docs) {
 			callback(err,docs);
 		} else {

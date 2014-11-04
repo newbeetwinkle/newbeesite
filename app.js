@@ -12,7 +12,7 @@ var session = require('express-session');
 var index = require('./routes/index');
 var users = require('./routes/userRouter');
 var posts = require('./routes/postRouter');
-var Utils = require('./Utils.js');
+var Utils = require('./utils.js');
 var admin = require('./routes/admin');
 
 //var register = require('./routes/registerRouter');
