@@ -5,7 +5,16 @@ var commentDao = require('../dao/commentDao');
 
 /* Query one post info */
 exports.queryOnePost = function(postId,callback){
-	postDao.findOnePost(postId,callback);
+	postDao.findOnePost(postId,function(err, post){
+        if(err) {
+            callback(err);
+        }else{
+            commentDao.getCommentsCount(postId, function(err, count){
+                post['commentsCount'] = count;
+                callback(null, post);
+            });
+        }
+    });
 };
 
 exports.queryAllPost = function(callback){

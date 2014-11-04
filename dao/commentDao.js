@@ -34,6 +34,17 @@ exports.addComment = function(postId, postContent, user, callback){
     });
 }
 
+/* get comments count of one post */
+exports.getCommentsCount = function(postId, callback){
+    CommentModel.count({postId : postId}, function(err, count){
+        if(err){
+            callback(err);
+        }else{
+            callback(err, count);
+        }
+    });
+}
+
 /* find comments */
 exports.findComments = function(postId, index, count, callback){
     CommentModel.find({postId : postId})
