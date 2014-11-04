@@ -4,31 +4,43 @@
 <html>
 <head>
 <title>register page</title>
- <link href="stylesheets/login.css" rel="stylesheet">
+<link rel='stylesheet' href='/stylesheets/login.css' />
 </head>
 <body>
-<form method="post" >
+<form method="post"  class="form-signin" role="form">
 	<div id="loginBlock" >
-	<table>
+	<h2 class="form-signin-heading">欢迎登录</h2>
+	<table >
 	<tr>
 		<td>用户名：</td>
-		<td><input class="form-control" type="textbox" id="username" name="username" /></td>
+		<td>
+		<input class="form-control" type="textbox" id="username"  required autofocus name="username" placeholder="Username/Email"/></td> 
 	</tr>	
 	<tr>
 		<td>密码：</td>
-		<td><input class="form-control" type="password" id="password" name="password" /></td>
+		<td><input class="form-control" type="password" id="password" placeholder="Password" required name="password" /></td>
 	</tr>	
 	<tr>
-		<td><input type="submit" class="btn btn-primary btn-sm" id="login-btn" value="登录"  name="login-btn"/> </td>
-		<td><input type="reset"  class="btn btn-danger btn-sm"  id="reset-btn" value="重置" name="reset-btn" /></td>
+		<td colspan="2">
+		<input type="checkbox" >阅读用户协议
+		</td>
 	</tr>
+	<tr>
+		<td colspan="2"><input type="submit" class="btn btn-primary btn-lg btn-block" id="login-btn" value="登录"  name="login-btn"/> </td>
+	</tr>
+	<!-- 
+	<tr>
+		<td colspan="2"><input type="reset"  class="btn btn-danger btn-lg"  id="reset-btn" value="重置" name="reset-btn" /></td>
+	</tr>
+	-->
 	<tr>
 		<td colspan="2">
 			<a href="/users/register">没有帐号？赶紧注册</a>
 		</td>
 	</tr>
-	</div>
+	
 </table>
+</div>
 </form>
 </body>
 

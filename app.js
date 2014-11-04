@@ -6,11 +6,15 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var engine = require('ejs-locals')
+var session = require('express-session');
+
 
 var index = require('./routes/index');
 var users = require('./routes/userRouter');
 var posts = require('./routes/postRouter');
 var Utils = require('./Utils.js');
+var admin = require('./routes/admin');
+
 //var register = require('./routes/registerRouter');
 
 require('./dao/db');
@@ -28,22 +32,22 @@ app.set('port', process.env.PORT || 3000);
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 
 
+
+app.use(cookieParser());
+app.use(session({secret : "123456", saveUninitialized: true, resave: true}));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-//app.use(express.session({secret : "123456"}));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', index);
 app.use('/users', users);
 app.use('/posts', posts);
-//app.use('/rgister',register);
+app.use('/admin',admin);
 
 app.locals.dateFormat= Utils.dateFormat;
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

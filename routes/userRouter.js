@@ -9,7 +9,7 @@ router.get('/register',function(req,res){
 	res.render('register');
 });
 
-// router.post('/register',checkLogin);
+// router.post('/register',checkLogin); 
 router.post('/register', function(req, res) {
 	if (req.body['confirmPassword'] != req.body['password']) {
 		// req.flash('error','两次输入的密码不一致！');
@@ -39,7 +39,7 @@ router.post('/login',checkNotLogin);
 router.post('/login',function(req,res){
 	userService.login(req.body.username,req.body.password,function(err ,data){	
 		if (data) {
-			// res.send(req.body.username+"login successful!");
+			res.send(req.body.username+"login successful!");
 			req.session.user = req.body.username;
 			res.redirect('/');
 		} else {
@@ -52,7 +52,7 @@ router.get('/queryAllUser', checkLogin);
 router.get('/queryAllUser', function(req, res){
 	userService.queryAllUser(function(err, data){
 		if(err){
-			res.send("query  all user failed!");
+			res.send("query  all user failed!");ch
 		} else{
 			res.send(data);
 		}
@@ -60,7 +60,7 @@ router.get('/queryAllUser', function(req, res){
 })
 
 function checkLogin(req,res,next){
-	console.info(req.session);
+	console.info(req.session.user);
 	if (!req.session.user) {
 		return res.redirect('/users/login');
 	} 
@@ -68,7 +68,7 @@ function checkLogin(req,res,next){
 }
 
 function checkNotLogin(req,res,next){
-	console.info(req.session);
+	console.info(req.session.user);
 	if (req.session.user) {
 		return res.redirect('/');
 	} 

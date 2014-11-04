@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var Utils = require('../Utils.js');
 var Schema = mongoose.Schema;
+var autoIncrement = require('mongoose-auto-increment');
+require('./db');
 
 // Define Post schema
 var _Post = new Schema({
@@ -15,6 +17,11 @@ var _Post = new Schema({
     deleted : { type: Boolean, default: false },
 });
 
+_Post.plugin(autoIncrement.plugin, {
+    model:'Post',
+    field:'postId',
+    startAt:10000
+});
 var PostModel = mongoose.model('Post', _Post);
 
 exports.findOnePost = function(postId,callback){
@@ -22,8 +29,6 @@ exports.findOnePost = function(postId,callback){
     // query, update, options
     PostModel.findOneAndUpdate({postId : postId}, {$inc : {viewCount : 1}}, {new : true})
         .populate('author')
-//        .populate('comments.user')
-//        .slice('comments', 2)
         .exec(function (err, data) {
             if(err) {
                 callback(err);
@@ -42,3 +47,35 @@ exports.findAllPost = function(callback){
         }
     })
 };
+
+/* Add comment */
+exports.addComment = function(postId, postContent, user, callback){
+    var commentTime = Date.now();
+    var commentId = postId + '' + commentTime;
+    PostModel.findOneAndUpdate({postId : postId},
+        {$push : {comments : {commentId : commentId, user : user._id, content : postContent, commentTime : commentTime}}},
+        {new : true},
+        function (err, data) {
+            if(err) {
+                callback(err);
+            }else{
+                var result = {};
+                result.nickname = user.nickname;
+                result.emailMd5 = user.emailMd5;
+                result.content = postContent;
+                result.time = commentTime;
+                callback(null, result);
+            }
+    })
+};
+
+exports.addPost = function(postObject,callback){
+        var post = new PostModel({
+            title : postObject.title,
+            content : postObject.content,
+            author : postObject.author
+        });
+    post.save(function(){
+        callback();
+    });
+}
