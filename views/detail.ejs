@@ -1,5 +1,7 @@
 <% layout('boilerplate') -%>
 
+<link href="/stylesheets/detail.css" rel="stylesheet" >
+
 <h1><%=post.title %></h1>
 <span>作者：<%=post.author.nickname%></span> <img src=<%="http://www.gravatar.com/avatar/"+post.author.emailMd5 + "?s=25"%>>
 <h5><label type="button" class="label label-primary">浏览数：<%=post.viewCount%></label>  </h5>
@@ -25,19 +27,17 @@
 <% if(comments == undefined || comments.length == 0 ) {%>
     没人评论，快来抢沙发！
 <% } else { %>
-    <ul class="post_list">
+    <ul class="comment_list">
         <span>共有 <%=post.commentsCount%> 条评论</span>
         <%for(var i = 0; i<comments.length;i++){ %>
         <li>
-            <div>
-                <img src=<%="http://www.gravatar.com/avatar/"+comments[i].user.emailMd5 + "?s=80"%>>
-                <%=comments[i].user.nickname %> :
-            </div>
-            <div class="well">
-                <p>
+            <img class="comment_avatar" src=<%="http://www.gravatar.com/avatar/"+comments[i].user.emailMd5 + "?s=80"%>>
+            <div class="comment_text">
+                <label class="comment_nickname"><%=comments[i].user.nickname %></label>
+                <p class="comment_comment_area">
                     <%=comments[i].content %>
                 </p>
-                <time><%=dateFormat(comments[i].commentTime) %></time>
+                <time class="comment_comment_time"><%=dateFormat(comments[i].commentTime) %></time>
             </div>
         </li>
         <% } %>
@@ -53,6 +53,7 @@
         <li><a href="#">&raquo;</a></li>
     </ul>
 </nav>
+
 <script src="/javascripts/detail_action.js"></script>
 
 

@@ -15,7 +15,7 @@ function submit_comment(postId){
                 + data['user'].nickname + ':</div><div class="well"><p>'
                 + data['comment'].content + ' </p><time>'
                 + data['comment'].commentTime + '</time></div></li>';
-            $('.post_list').append(a);
+            $('.comment_list').append(a);
         }
     });
 }
