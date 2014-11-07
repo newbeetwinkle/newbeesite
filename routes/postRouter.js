@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var postService = require('../service/postService');
 var Constant = require('../Constant.js');
+var utils = require('../utils.js');
+
 
 /* GET one post info. */
 router.get('/:postId?', function(req, res) {
@@ -20,9 +22,7 @@ router.get('/:postId?', function(req, res) {
               if(error){
                   res.send("query comments failed!");
               }else{
-                  var pageCount = 1;
                   pageCount = post.commentsCount / Constant.ONE_PAGE_COMMENT_COUNT;
-
                   res.render('detail',{"post":post, "comments":comment, "pageNow":pageNow, "pageCount":pageCount });
               }
 
@@ -37,6 +37,7 @@ router.post('/comment', function(req, res) {
     postService.saveComment(req.body.postId, req.body.postContent, req.session.user, function(err, comment, user){
         var result  = {};
         result['comment'] = comment;
+        result['commentTimeStr'] = utils.dateFormat(comment.commentTime);
         result['user'] = user;
         res.send(result);
     });

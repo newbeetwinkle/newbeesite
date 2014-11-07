@@ -1,5 +1,4 @@
 var postDao = require('../dao/postDao');
-var userDao = require('../dao/userDao');
 var commentDao = require('../dao/commentDao');
 
 
@@ -22,7 +21,7 @@ exports.queryAllPost = function(callback){
 }
 
 exports.saveComment = function(postId, postContent, user, callback){
-        commentDao.addComment(postId, postContent, user, callback);
+    commentDao.addComment(postId, postContent, user, callback);
 };
 
 exports.queryComments = function(postId, index, count, callback){

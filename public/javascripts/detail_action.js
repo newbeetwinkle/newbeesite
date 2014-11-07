@@ -4,18 +4,28 @@
 
 function submit_comment(postId){
 
+    var comment = $("#comment_input").val();
+
+    console.log(comment);
+    if(comment == ''){
+        alert('啥都没写，你评个JB啊！');
+        return;
+    }
+
     $.ajax({
         type: "POST",
         url: "/posts/comment",
-        data: {postId : postId, postContent : $("#comment_input").val()},
+        data: {postId : postId, postContent : comment},
         dataType: "json",
         success: function(data){
-            var  a = '<li><div><img src="http://www.gravatar.com/avatar/'
-                + data['user'].emailMd5 + '?s=80">'
-                + data['user'].nickname + ':</div><div class="well"><p>'
-                + data['comment'].content + ' </p><time>'
-                + data['comment'].commentTime + '</time></div></li>';
-            $('.comment_list').append(a);
+            $('#comment_list').prepend(makeCommentUnit(data['user'].emailMd5, data['user'].nickname, data['comment'].content, data['commentTimeStr']));
         }
     });
+}
+
+function makeCommentUnit(emailMd5, nickname, content, commentTime){
+    return '<li><img class="comment_avatar shadow" src="http://www.gravatar.com/avatar/' + emailMd5 + '?s=80">' +
+    '<div class="comment_text"><label class="comment_nickname">' + nickname + '</label>' +
+    '<p class="comment_comment_area">' + content + '</p>' +
+    '<time class="comment_comment_time">' + commentTime + '</time></div></li>';
 }

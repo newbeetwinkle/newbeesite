@@ -1,6 +1,7 @@
 <% layout('boilerplate') -%>
 
 <link href="/stylesheets/detail.css" rel="stylesheet" >
+<script src="/javascripts/detail_action.js"></script>
 
 <h1><%=post.title %></h1>
 <span>作者：<%=post.author.nickname%></span> <img src=<%="http://www.gravatar.com/avatar/"+post.author.emailMd5 + "?s=25"%>>
@@ -17,21 +18,25 @@
 </li>
 </ul>
 
-<div class="input-group">
-    <input id="comment_input" type="text" class="form-control">
-      <span class="input-group-btn">
-        <button onclick="submit_comment(<%=post.postId%>);" class="btn btn-default" type="button">发表评论</button>
-      </span>
-</div>
+<ul class="comment_list">
+    <li>
+        <img class="comment_avatar shadow" src=<%="http://www.gravatar.com/avatar/?s=80"%>>
+        <div class="comment_text">
+            <textarea id="comment_input" placeholder="评论框里的提示文字现在可以自定义了哟" class="comment_input" maxlength="500"></textarea>
+            <button onclick="submit_comment(<%=post.postId%>);" class="btn btn-info" type="button">发表评论</button>
+        </div>
+    </li>
+</ul>
+
 
 <% if(comments == undefined || comments.length == 0 ) {%>
     没人评论，快来抢沙发！
 <% } else { %>
-    <ul class="comment_list">
-        <span>共有 <%=post.commentsCount%> 条评论</span>
+    <span>共有 <%=post.commentsCount%> 条评论</span>
+    <ul id="comment_list" class="comment_list">
         <%for(var i = 0; i<comments.length;i++){ %>
         <li>
-            <img class="comment_avatar" src=<%="http://www.gravatar.com/avatar/"+comments[i].user.emailMd5 + "?s=80"%>>
+            <img class="comment_avatar shadow" src=<%="http://www.gravatar.com/avatar/"+comments[i].user.emailMd5 + "?s=80"%>>
             <div class="comment_text">
                 <label class="comment_nickname"><%=comments[i].user.nickname %></label>
                 <p class="comment_comment_area">
@@ -42,19 +47,15 @@
         </li>
         <% } %>
     </ul>
-<% } %>
 
-<nav>
-    <ul class="pagination">
-        <li><a href="#">&laquo;</a></li>
-        <%for(var i = 0; i<pageCount;i++){%>
+    <nav>
+        <ul class="pagination">
+            <li><a href="#">&laquo;</a></li>
+            <%for(var i = 0; i<pageCount;i++){%>
             <li <%if(pageNow==i+1){%>class="active"<%}%>><a href="/posts/<%=post.postId%>?pageNow=<%=i+1%>"><%=i+1%></a></li>
-        <% } %>
-        <li><a href="#">&raquo;</a></li>
-    </ul>
-</nav>
+            <% } %>
+            <li><a href="#">&raquo;</a></li>
+        </ul>
+    </nav>
 
-<script src="/javascripts/detail_action.js"></script>
-
-
-
+<% } %>
