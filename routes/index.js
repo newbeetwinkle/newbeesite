@@ -10,7 +10,7 @@ router.get('/', function(req, res) {
 				element.content = element.content.substring(0, 100) + "...";
 			}
 		});
-		res.render('index',{"posts":posts});
+		res.render('index',{"posts":posts,"user":req.session.user});
 	})
 });
 

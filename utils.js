@@ -26,7 +26,6 @@ exports.md5 = function(data) {
 }
 
 exports.checkLogin =  function(req,res,next){
-	console.info(req.session.user);
 	if (!req.session.user) {
 		return res.redirect('/users/login');
 	} 
@@ -34,7 +33,6 @@ exports.checkLogin =  function(req,res,next){
 }
 
 exports.checkNotLogin = function(req,res,next){
-	console.info(req.session.user);
 	if (req.session.user) {
 		return res.redirect('/');
 	} 

@@ -1,4 +1,12 @@
+
 <% layout('boilerplate') -%>
+
+<%= success %>
+<% } %>
+<% if (error) { %>
+<%= error %>
+<% } %>
+<!DOCTYPE html >
 
 <h1><%=post.title %></h1>
 <span>作者：<%=post.author.nickname%></span> <img src=<%="http://www.gravatar.com/avatar/"+post.author.emailMd5 + "?s=25"%>>

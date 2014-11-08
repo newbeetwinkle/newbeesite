@@ -3,6 +3,14 @@ var router = express.Router();
 var postService = require('../service/postService');
 var Constant = require('../Constant.js');
 
+//locals to change module dynamic
+router.use(function(req,res,next){
+  res.locals.user = req.session.user;
+  next();
+});
+
+
+
 /* GET one post info. */
 router.get('/:postId?', function(req, res) {
   postService.queryOnePost(req.params.postId,function(err, post){
@@ -34,12 +42,17 @@ router.get('/:postId?', function(req, res) {
 
 /* POST to save one comment info. */
 router.post('/comment', function(req, res) {
+     var commentPermission = req.session.user ? true : false ;
+     console.info(commentPermission);
+     if(commentPermission){
     postService.saveComment(req.body.postId, req.body.postContent, req.session.user, function(err, comment, user){
         var result  = {};
         result['comment'] = comment;
         result['user'] = user;
         res.send(result);
-    });
+    }); 
+     }
+     else req.flash("error","please login first!");
 });
 
 module.exports = router;

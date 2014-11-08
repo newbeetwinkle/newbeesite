@@ -31,6 +31,12 @@ router.post('/register', function(req, res) {
 	}
 });
 
+//use locals to dynamic change content of module engine
+router.use(function(req,res,next){
+	res.locals.user = req.session.user;
+	next();
+});
+
 router.all('/login',util.checkNotLogin);
 router.get('/login',function(req,res){
 	res.render('login');
@@ -47,6 +53,12 @@ router.post('/login',function(req,res){
 		}		
 	})	
   });
+
+router.all('logout',util.checkNotLogin);
+router.get('/logout',function(req,res){
+	req.session.user = null;
+	res.redirect("/");
+})
 
 router.get('/queryAllUser', util.checkLogin);
 router.get('/queryAllUser', function(req, res){
@@ -69,7 +81,6 @@ router.get('/query/:username', function(req, res){
 	})
 })
 router.get('',function(req,res){
-	console.info("userlogin");
 	res.render('login');
 })
 
