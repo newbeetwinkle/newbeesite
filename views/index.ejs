@@ -1,14 +1,19 @@
+<!DOCTYPE html >
 <% layout('boilerplate') -%>
-
-<h1>NEWBEE BLOG</h1>
-
+<html>
+	<head>		
+     		  <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+	</head>
+	<body>
+		<h1>NEWBEE BLOG</h1>
 <div class="row">
 <div class="col-xs-8">
 <ul class="post_list">
 <%for(var i = 0; i<posts.length;i++){ %>
 <li>
 <section class="well">
-<a href="/posts/<%=posts[i].postId%>"><h1><%=posts[i].title %></h1></a>
+<a href="/posts/<%=posts[i].postId%>"><h1><%=posts[i].title %>
+</h1></a>
 <p>
 <%-posts[i].content %>
 </p>
@@ -23,3 +28,5 @@
 <div class="col-xs-4">
 </div>
 </div>
+	</body>
+</html>

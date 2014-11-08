@@ -45,10 +45,11 @@ body {
 	font: 500 20px/1.8 Georgia, Times, 'Hiragino Sans GB', \u5B8B\u4F53, serif;
 }
 footer {
-	margin-top: 20px;
-	padding-top: 20px;
-	padding-bottom: 30px;
-	font-size: 13px;
+	font-size: 15px;
+	width:100%;
+	text-align:center;
+	position:absolute;
+	bottom:30px;
 }
 footer a {
 	color: #666;

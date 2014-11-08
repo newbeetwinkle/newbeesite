@@ -26,16 +26,16 @@ exports.md5 = function(data) {
 }
 
 exports.checkLogin =  function(req,res,next){
-	console.info(req.session.user);
 	if (!req.session.user) {
+		req.flash("error","游客请登录！");
 		return res.redirect('/users/login');
 	} 
 	next();
 }
 
 exports.checkNotLogin = function(req,res,next){
-	console.info(req.session.user);
 	if (req.session.user) {
+		req.flash("error","用户"+req.session.user.username+"已登录！");
 		return res.redirect('/');
 	} 
 	next();

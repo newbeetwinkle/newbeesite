@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var postService = require('../service/postService');
 
+
+
 /* GET home page. */
 router.get('/', function(req, res) {
 	postService.queryAllPost(function(e, posts){
@@ -10,7 +12,7 @@ router.get('/', function(req, res) {
 				element.content = element.content.substring(0, 100) + "...";
 			}
 		});
-		res.render('index',{"posts":posts});
+		res.render('index',{"posts":posts,"user":req.session.user});
 	})
 });
 
