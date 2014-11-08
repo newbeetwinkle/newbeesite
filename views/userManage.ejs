@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<% layout('adminlayout') -%>
+<head>
+       <style type="text/css">
+
+       </style>
+</head>
+<table class="table table-bordered table-hover">
+	<tr>
+		<th>用户名</th>
+		<th>昵称</th>
+		<th>手机号</th>
+		<th>地址</th>
+		<th>电子邮箱</th>
+		<th>操作</th>
+	</tr>
+<% for(var i = 0 ; i < users.length ; i++) { %>
+	<tr>
+		<td><%= users[i].username%></td>
+		<td><%= users[i].nickname%></td>
+		<td><%= users[i].phone%></td>
+		<td><%= users[i].address%></td>
+		<td><%= users[i].email%></td>
+		<td>
+			<a class="btn btn-default btn-sm" herf="/admin/user?act='modify'&userid=<%=users[i]._id%>">修改</a>
+			<a class="btn btn-default btn-sm" herf="/admin/user?act='delete'&userid=<%=users[i]._id%>">删除</a>
+		</td>
+	<tr>
+<% } %>
+</table>
