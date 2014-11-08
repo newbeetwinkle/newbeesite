@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var engine = require('ejs-locals')
 var session = require('express-session');
+var flash = require("connect-flash");
 
 
 var index = require('./routes/index');
@@ -15,7 +16,6 @@ var posts = require('./routes/postRouter');
 var Utils = require('./utils.js');
 var admin = require('./routes/admin');
 
-//var register = require('./routes/registerRouter');
 
 require('./dao/db');
 
@@ -34,12 +34,12 @@ app.set('port', process.env.PORT || 3000);
 
 
 app.use(cookieParser());
-app.use(session({secret : "123456", saveUninitialized: true, resave: true}));
+app.use(session({secret : "newbee", saveUninitialized: true, resave: true}));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash());
 
 
 app.use('/', index);
@@ -48,6 +48,8 @@ app.use('/posts', posts);
 app.use('/admin',admin);
 
 app.locals.dateFormat= Utils.dateFormat;
+app.locals.success = null ;
+app.locals.error = null ;
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -55,6 +57,13 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
+
+//not used in express 4.0,changed to locals
+// app.dynamicHelpers ({
+//     user: function(req,res){
+//         return req.session.user;
+//     }
+// });
 
 // error handlers
 

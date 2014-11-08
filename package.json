@@ -20,6 +20,7 @@
     "express-session": "^1.9.1",
     "mongoose-auto-increment": "~3.0.8",
     "ueditor": "~1.0.0",
-    "connect": "^3.3.2"
+    "connect": "^3.3.2",
+    "connect-flash": "^0.1.1"
   }
 }

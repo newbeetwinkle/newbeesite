@@ -1,54 +1,57 @@
+<!DOCTYPE html>
 <% layout('boilerplate') -%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
 <title>register page</title>
+<link rel='stylesheet' href='/stylesheets/register.css' />
 </head>
 <body>
 <form method="post" >
-		<table >
+	<div id="registerBlock">
+	<h2 class="form-register-heading">请注册一个新用户</h2>
+	<table >
 	<tr>
 		<td>用户名：</td>
-		<td><input type="text" id="username" name="username" class="form-control" placeholder="Enter your name"/>
+		<td><input type="text" id="username" name="username" class="form-control" placeholder="Enter your name" required autocomplete/>
 		</td>
 		<td><font color="red">*</font></td>
 	</tr>	
 	<tr>
 		<td>密码：</td>
-		<td><input type="password" id="password" name="password" class="form-control"/></td>
+		<td><input type="password" id="password" name="password" class="form-control" required /></td>
 		<td><font color="red">*</font></td>
 	</tr>
 	<tr>
 		<td>确认密码：</td>
-		<td><input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="the same"/></td>
+		<td><input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required/></td>
 		<td><font color="red">*</font></td>
 	</tr>
 	<tr>
 		<td>昵称：</td>
-		<td><input type="textbox" id="nickname" name="nickname" class="form-control"/></td>
-	</tr>
-	<tr>
-		<td>手机：</td>
-		<td><input type="textbox" id="telephone" name="telephone" class="form-control" placeholder="11 numbers"/></td>
-	</tr>
-	<tr>
-		<td>地址：</td>
-		<td><input type="textbox" id="addr" name="addr" class="form-control"/></td>
-	</tr>
-	<tr>
-		<td>邮箱：</td>		
-		<td><input type="text" class="form-control" placeholder="example@gmail.com"> </td>
+		<td><input type="textbox" id="nickname" name="nickname" class="form-control" required /></td>
 		<td><font color="red">*</font></td>
 	</tr>
 	<tr>
-		<td><input type="submit" class="btn btn-primary" id="register-btn" value="注册"  name="register-btn"/> </td>
-		<td><input type="reset"  class="btn btn-danger" id="reset-btn" value="重置" name="reset-btn" /></td>
+		<td>手机：</td>
+		<td><input type="tel" id="telephone" name="telephone" class="form-control" required autocomplete/></td>
+	</tr>
+	<tr>
+		<td>地址：</td>
+		<td><input type="textbox" id="addr" name="addr" class="form-control"  /></td>
+	</tr>
+	<tr>
+		<td>邮箱：</td>		
+		<td><input type="email" id="email"  name="email" class="form-control" placeholder="example@gmail.com" required autocomplete/></td>
+		<td><font color="red">*</font></td>
+	</tr>
+	<tr>
+		<td colspan="2"><input type="submit" class="btn btn-primary btn-md btn-block" id="register-btn" value="注册"  name="register-btn"/> </td>
 	</tr>
 	<tr>
 		<td><font color="red">*为必填项目</font></td>
 	</tr>
 </table>
+	</div>
 </form>
 </body>
 

@@ -7,6 +7,12 @@ body{
 	margin-left: auto;
 	margin-right: auto;
 }
-.form-signin-heading{
-	font-family: "Open Sans",Arial,"Hiragino Sans GB","Microsoft YaHei","微软雅黑","STHeiti","WenQuanYi Micro Hei",SimSun,sans-serif;
+#register font{
+	font-size: 15px;
+}
+#register a{
+	text-decoration: none;
+}
+#register a:hover{
+	color:#666;
 }

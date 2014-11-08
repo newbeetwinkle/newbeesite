@@ -4,6 +4,16 @@ var userService = require('../service/userService');
 var postService = require('../service/postService');
 var util = require('../utils');
 
+//locals to change module dynamic
+router.use(function(req,res,next){
+ res.locals.user = req.session.user;
+ var err = req.flash("error");
+ res.locals.error =  err.length ? err : null ;
+ var success = req.flash("success");
+ res.locals.success = success.length ? success : null ;
+  next();
+});
+
 /* GET users listing. */
 // router.get('/register',checkLogin);
 router.get('/register',function(req,res){
@@ -13,7 +23,7 @@ router.get('/register',function(req,res){
 // router.post('/register',checkLogin); 
 router.post('/register', function(req, res) {
 	if (req.body['confirmPassword'] != req.body['password']) {
-		// req.flash('error','两次输入的密码不一致！');
+		req.flash('error','两次输入的密码不一致！');
 		res.redirect('/users/register');
 	} else {
  		 userService.addUser(
@@ -24,11 +34,17 @@ router.post('/register', function(req, res) {
  		 	req.body.addr,
  		 	req.body.email,
  		 	function(){
-  				// res.send("register  sueccess!");
+  				req.flash("success",req.body.username+"注册成功");
   				res.redirect('/users/login');
   			}
   		)
 	}
+});
+
+//use locals to dynamic change content of module engine
+router.use(function(req,res,next){
+	res.locals.user = req.session.user;
+	next();
 });
 
 router.all('/login',util.checkNotLogin);
@@ -39,14 +55,22 @@ router.get('/login',function(req,res){
 router.post('/login',function(req,res){
 	userService.login(req.body.username,req.body.password,function(err ,data){	
 		if (data) {
-			// res.send(req.body.username+"login successful!");
 			req.session.user = data;
+			//why here is not ok to response
+			// req.flash("success",req.body.username+"登录成功！");
 			res.redirect('/');
-		} else {
-			res.send(req.body.username+"login failed!Please cotact administartor at 110");
+		} else {			
+			req.flash("error","登录失败！");
+ 			res.redirect("/users/login");
 		}		
 	})	
   });
+
+router.all('logout',util.checkNotLogin);
+router.get('/logout',function(req,res){
+	req.session.user = null;
+	res.redirect("/");
+})
 
 router.get('/queryAllUser', util.checkLogin);
 router.get('/queryAllUser', function(req, res){
@@ -69,7 +93,6 @@ router.get('/query/:username', function(req, res){
 	})
 })
 router.get('',function(req,res){
-	console.info("userlogin");
 	res.render('login');
 })
 
