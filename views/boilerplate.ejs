@@ -78,7 +78,17 @@
            <!-- /.container-fluid -->
        </nav>
        <div class="container theme-showcase" id="footer" role="main">
-           <%-body%>
+          <% if (success) { %>
+              <div class="alert alert-success">
+          <%= success %>
+          </div>
+          <% } %>
+          <% if (error) { %>
+          <div class="alert alert-error">
+           <%= error %>
+           </div>
+          <% } %>
+          <%-body%>
        </div>
        <footer >
                 <span>Powered by <a href="https://github.com/newbeetwinkle/newbeesite" target="_blank">NodeJs</a>.</span>

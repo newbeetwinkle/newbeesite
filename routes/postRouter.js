@@ -2,10 +2,16 @@ var express = require('express');
 var router = express.Router();
 var postService = require('../service/postService');
 var Constant = require('../Constant.js');
+var flash = require("connect-flash");
+router.use(flash());
 
 //locals to change module dynamic
 router.use(function(req,res,next){
-  res.locals.user = req.session.user;
+ res.locals.user = req.session.user;
+ var err = req.flash("error");
+ res.locals.error =  err.length ? err : null ;
+ var success = req.flash("success");
+ res.locals.success = success.length ? success : null ;
   next();
 });
 
@@ -52,7 +58,11 @@ router.post('/comment', function(req, res) {
         res.send(result);
     }); 
      }
-     else req.flash("error","please login first!");
+     else {
+         console.info("please login");
+         req.flash("error" , "请登录!");
+         res.redirect("/posts/comment");
+     }
 });
 
 module.exports = router;
