@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var util = require("../utils");
 
 // Define User schema
 var _User = new Schema({
@@ -26,7 +27,7 @@ exports.insertUser = function(username,password,nickname,phone,address,email,cal
 	   	nickname:nickname,
 	   	phone:phone,
 	   	address:address,
-	   	email:email,
+	   	email:util.md5(email),
 	    });
 	user.save(function(){
 		callback();

@@ -23,7 +23,7 @@ router.get('/register',function(req,res){
 // router.post('/register',checkLogin); 
 router.post('/register', function(req, res) {
 	if (req.body['confirmPassword'] != req.body['password']) {
-		// req.flash('error','两次输入的密码不一致！');
+		req.flash('error','两次输入的密码不一致！');
 		res.redirect('/users/register');
 	} else {
  		 userService.addUser(
@@ -59,8 +59,9 @@ router.post('/login',function(req,res){
 			//why here is not ok to response
 			// req.flash("success",req.body.username+"登录成功！");
 			res.redirect('/');
-		} else {
-			res.send(req.body.username+"login failed!Please cotact administartor at 110");
+		} else {			
+			req.flash("error","登录失败！");
+ 			res.redirect("/users/login");
 		}		
 	})	
   });
