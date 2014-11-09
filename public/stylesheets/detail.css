@@ -1,4 +1,37 @@
 
+.pre_post_info{
+   min-height: 35px;
+   margin: 10px;
+}
+
+.post_author{
+    float: left;
+    margin-left: 5px;
+    margin-top: 13px;
+}
+
+.post_author_avatar{
+    float: left;
+    margin-left: 15px;
+    margin-top:7px;
+}
+
+.post_view_count{
+    float: right;
+    margin-top: 12px;
+    font-size: 16px;
+}
+
+.post_content{
+    padding-bottom: 40px;
+}
+
+.post_time{
+    float: right;
+    color: gray;
+    margin: 10px;
+    height: 20px;
+}
 
 .comment_list{
     padding: 0px;

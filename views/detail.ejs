@@ -12,19 +12,19 @@
 
 <h1><%=post.title %></h1>
 <input id="postId" value='<%=post.postId %>' type="hidden" >
-<span>作者：<%=post.author.nickname%></span><img class="avatar_small shadow" src=<%="http://www.gravatar.com/avatar/"+post.author.emailMd5 + "?s=30"%>>
-<h5><label type="button" class="label label-primary">浏览数：<%=post.viewCount%></label>  </h5>
 
-<ul class="post_list">
-<li>
-<div class="well">
+<div class="pre_post_info">
+    <span class="post_author">作者：<%=post.author.nickname%></span>
+    <img class="post_author_avatar avatar_small shadow" src=<%="http://www.gravatar.com/avatar/"+post.author.emailMd5 + "?s=30"%>>
+    <label type="button" class="post_view_count label label-primary">浏览数：<%=post.viewCount%></label>
+</div>
+
+<div class="well post_content">
 <p>
 <%-post.content %>
 </p>
-<time><%=dateFormat(post.createTime) %></time>
+<span class="post_time">发布于 <%=dateFormat(post.createTime) %></span>
 </div>
-</li>
-</ul>
 
 
 <ul class="comment_list">
