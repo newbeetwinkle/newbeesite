@@ -25,4 +25,14 @@ function widthFunctions(e) {
 	}
 }
 
+$('#editpostform').submit(function () {
+	var  content = UE.getEditor('editor').getContent() || '';
+	content = $.trim(content);
+	if(content == ''){
+		$('#info').html('文章内容都没，你以为你是姚宽啊！');
+		$('#info').removeClass('hide');
+		return false;
+	}
+});
+
 widthFunctions();	

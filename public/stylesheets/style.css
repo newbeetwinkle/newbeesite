@@ -1,7 +1,9 @@
 body {
-  padding-top: 70px;
+  padding: 70px 0px 0px 0px;
   /* padding-bottom: 30px; */
   background-color:#ccc;
+  height:100%;
+  margin: :0px;
 }
 
 /*首页列表样式*/
@@ -56,4 +58,11 @@ footer a {
 }
 footer a:hover {
 	color: #444;
+}
+#wrapper {
+	min-height: 100%;  
+	position: relative; 
+}
+#main {
+	padding-bottom: 60px;
 }

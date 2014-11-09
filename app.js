@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var engine = require('ejs-locals')
 var session = require('express-session');
+var mongoStore = require('connect-mongo')(session);
 var flash = require("connect-flash");
 
 
@@ -34,10 +35,17 @@ app.set('port', process.env.PORT || 3000);
 
 
 app.use(cookieParser());
-app.use(session({secret : "newbee", saveUninitialized: true, resave: true}));
+app.use(session({
+    secret: 'NEWBEE',
+    store: new mongoStore({
+              url: 'mongodb://localhost/nb_blog'
+        }),
+    resave: true,
+    saveUninitialized: true
+}));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(flash());
 
