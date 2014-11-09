@@ -12,6 +12,8 @@
        <link href="/stylesheets/bootstrap.css" rel="stylesheet">
        <link href="/stylesheets/bootstrap-theme.css" rel="stylesheet">
        <link href="/stylesheets/style.css" rel="stylesheet" >
+       <script src="/js/jquery-1.11.1.min.js" ></script>
+       <script src="/js/bootstrap.js"></script>
   </head>
   <body role="document" >
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -66,7 +68,7 @@
                         </li>
                        <li >
                            <% if(user) { %>
-                                <a href="/admin/post"><img class="avatar_small" src=<%="http://www.gravatar.com/avatar/"+user.emailMd5 + "?s=30"%>>
+                                <a href="/admin/post"><img class="avatar_small" src=<%="http://www.gravatar.com/avatar/" + user.emailMd5 + "?s=30"%>>
                                 </a>
                            <% }%>
                        </li>
@@ -100,7 +102,5 @@
                 <span>Powered by <a href="https://github.com/newbeetwinkle/newbeesite" target="_blank">NodeJs</a>.</span>
                  <span>Copyright &copy; 2014 by <a href="/">robinzhou, franksu, matthewyao</a>.</span>
         </footer>
-    <script src="/js/jquery-1.11.1.min.js" ></script>
-    <script src="/js/bootstrap.js"></script>
    </body>
   </html>

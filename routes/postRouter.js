@@ -48,11 +48,12 @@ router.post('/comment', function(req, res) {
      var commentPermission = req.session.user ? true : false ;
      console.info(commentPermission);
      if(commentPermission){
-        postService.saveComment(req.body.postId, req.body.postContent, req.session.user, function(err, comment, user){
+        postService.saveComment(req.body.postId, req.body.postContent, req.session.user, function(err, comment, user, count){
             var result  = {};
             result['comment'] = comment;
             result['commentTimeStr'] = utils.dateFormat(comment.commentTime);
             result['user'] = user;
+            result['count'] = count;
             res.send(result);
         });
      }
@@ -62,5 +63,36 @@ router.post('/comment', function(req, res) {
          res.redirect("/posts/comment");
      }
 });
+
+/* Get comments list. */
+router.post('/comment_list', function(req, res) {
+    var pageNow = req.body.pageNow;
+    var index = 0;
+    if (pageNow) {
+        index = (pageNow - 1) * Constant.ONE_PAGE_COMMENT_COUNT;
+    }else{
+        index = 0;
+    }
+    postService.queryComments(req.body.postId, index, Constant.ONE_PAGE_COMMENT_COUNT, function(error, comment){
+        if(error){
+            res.send("query comments failed!");
+        }else{
+            var result = '';
+            if(comment != undefined && comment != '' && comment.length != 0 ) {
+                for(var i = 0; i<comment.length;i++){
+                    result += makeCommentUnit(comment[i].user.emailMd5, comment[i].user.nickname, comment[i].content, utils.dateFormat(comment[i].commentTime));
+                }
+            }
+            res.send(result);
+        }
+    });
+});
+
+function makeCommentUnit(emailMd5, nickname, content, commentTime){
+    return '<li><img class="comment_avatar shadow" src="http://www.gravatar.com/avatar/' + emailMd5 + '?s=80">' +
+        '<div class="comment_text"><label class="comment_nickname">' + nickname + '</label>' +
+        '<p class="comment_comment_area">' + content + '</p>' +
+        '<time class="comment_comment_time">' + commentTime + '</time></div></li>';
+}
 
 module.exports = router;

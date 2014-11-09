@@ -6,10 +6,12 @@
     <title>detail page</title>
     <link href="/stylesheets/detail.css" rel="stylesheet" >
     <script src="/javascripts/detail_action.js"></script>
+    <script src="/js/scrollpagination.js"></script>
 </head>
 <body>
 
 <h1><%=post.title %></h1>
+<input id="postId" value='<%=post.postId %>' type="hidden" >
 <span>作者：<%=post.author.nickname%></span><img class="avatar_small shadow" src=<%="http://www.gravatar.com/avatar/"+post.author.emailMd5 + "?s=30"%>>
 <h5><label type="button" class="label label-primary">浏览数：<%=post.viewCount%></label>  </h5>
 
@@ -27,44 +29,45 @@
 
 <ul class="comment_list">
     <li>
-        <img class="comment_avatar avatar_mid shadow" src=<%="http://www.gravatar.com/avatar/?s=80"%>>
+        <% if(user) { %>
+            <img class="comment_avatar avatar_mid shadow" src=<%="http://www.gravatar.com/avatar/" + user.emailMd5 + "?s=80"%>>
+        <% } else { %>
+            <img class="comment_avatar avatar_mid shadow" src=<%="http://www.gravatar.com/avatar/?s=80"%>>
+        <% } %>
         <div class="comment_text">
-            <textarea id="comment_input" placeholder="评论框里的提示文字现在可以自定义了哟" class="comment_input" maxlength="500"></textarea>
+            <textarea id="comment_input" placeholder="想说点什么呢？" class="comment_input" maxlength="500"></textarea>
             <button onclick="submit_comment(<%=post.postId%>);" class="btn btn-info" type="button">发表评论</button>
         </div>
     </li>
 </ul>
 
-
-<ul id="comment_list" class="comment_list">
+<span id="comment_count_board">
     <% if(comments == undefined || comments.length == 0 ) {%>
         没人评论，快来抢沙发！
     <% } else { %>
-        <span>共有 <%=post.commentsCount%> 条评论</span>
-        <%for(var i = 0; i<comments.length;i++){ %>
-            <li>
-                <img class="comment_avatar avatar_mid shadow" src=<%="http://www.gravatar.com/avatar/"+comments[i].user.emailMd5 + "?s=80"%>>
-                <div class="comment_text">
-                    <label class="comment_nickname"><%=comments[i].user.nickname %></label>
-                    <p class="comment_comment_area">
-                        <%=comments[i].content %>
-                    </p>
-                    <time class="comment_comment_time"><%=dateFormat(comments[i].commentTime) %></time>
-                </div>
-            </li>
-        <% } %>
+        共有 <%=post.commentsCount%> 条评论
+    <% } %>
+</span>
+
+<ul id="comment_list" class="comment_list">
+    <%for(var i = 0; i<comments.length;i++){ %>
+    <li>
+        <img class="comment_avatar avatar_mid shadow" src=<%="http://www.gravatar.com/avatar/"+comments[i].user.emailMd5 + "?s=80"%>>
+        <div class="comment_text">
+            <label class="comment_nickname"><%=comments[i].user.nickname %></label>
+            <p class="comment_comment_area">
+                <%=comments[i].content %>
+            </p>
+            <time class="comment_comment_time"><%=dateFormat(comments[i].commentTime) %></time>
+        </div>
+    </li>
     <% } %>
 </ul>
 
-<nav>
-    <ul class="pagination">
-        <li><a href="#">&laquo;</a></li>
-        <%for(var i = 0; i<pageCount;i++){%>
-        <li <%if(pageNow==i+1){%>class="active"<%}%>><a href="/posts/<%=post.postId%>?pageNow=<%=i+1%>"><%=i+1%></a></li>
-        <% } %>
-        <li><a href="#">&raquo;</a></li>
-    </ul>
-</nav>
+<!--
+<div class="loading" id="loading">Wait a moment... it's loading!</div>
+<div class="loading" id="nomoreresults">Sorry, no more results for your pagination demo.</div>
+-->
 
 </body>
 </html>
