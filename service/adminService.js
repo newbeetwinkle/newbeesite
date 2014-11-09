@@ -15,3 +15,13 @@ exports.savePost = function(postContent, userid, callback){
 		}
 	});
 }
+
+exports.showUsers = function(callback){
+	userDao.findAllUser(function(err,data){
+		if (err) {
+			callback(err);
+		} else {
+			callback(err,data);
+		}
+	});
+}

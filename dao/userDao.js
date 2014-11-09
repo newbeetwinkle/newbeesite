@@ -36,11 +36,11 @@ exports.insertUser = function(username,password,nickname,phone,address,email,cal
 };
 
 exports.findAllUser = function(callback){
-	UserModel.find({},function(e, docs){
+	UserModel.find({},function(e, users){
 		if(e) {
 			callback(e);
 		}else{
-			callback(null,JSON.stringify(docs));
+			callback(null,users);
 		}
 	});
 };

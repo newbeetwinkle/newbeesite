@@ -31,4 +31,15 @@ router.post('/post',function(req, res) {
 	})
 });
 
+router.get('/user',function(req,res){
+	adminService.showUsers(function(err,users){
+		if (users) {			
+			res.render("userManage",{"users":users});
+		} else {
+			req.flash("error","查询用户失败");
+			res.redirect("/admin");
+		}
+	});
+})
+
 module.exports = router;
