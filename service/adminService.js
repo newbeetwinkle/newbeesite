@@ -1,9 +1,9 @@
 var postDao = require('../dao/postDao');
 var userDao = require('../dao/userDao');
 
-exports.savePost = function(postContent, userid, callback){
+exports.savePost = function(postTitle, postContent, userid, callback){
 	var post = {
-		title: 'test edit post',
+		title: postTitle,
 		content : postContent,
 		author: userid
 	}
