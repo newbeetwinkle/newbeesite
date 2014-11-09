@@ -56,19 +56,25 @@
                        <button type="submit" class="btn btn-default">Submit</button>
                    </form>
                    <ul class="nav navbar-nav navbar-right">
-                         <li ><a id="session_username" href="/admin/post"> 
+                        <li ><a id="session_username" href="/admin/post">
                             <% if (user) { %>
                               <%=user["username"]%>
-                          <% } if(!user) { %>
+                            <% } if(!user) { %>
                                 游客
-                          <% }%>,你好!
-                         </a>
-                         </li>
+                            <% }%>,你好!
+                            </a>
+                        </li>
+                       <li >
+                           <% if(user) { %>
+                                <a href="/admin/post"><img class="avatar_small" src=<%="http://www.gravatar.com/avatar/"+user.emailMd5 + "?s=30"%>>
+                                </a>
+                           <% }%>
+                       </li>
                        <li>
                           <% if (!user) { %>
                           <a href="/users/login">登录/注册</a> 
                           <% } if(user) { %>
-                          <a href="/users/logout">登出</a> 
+                          <a href="/users/logout">登出</a>
                           <% }%>
                        </li>   
                    </ul>
@@ -84,7 +90,7 @@
           </div>
           <% } %>
           <% if (error) { %>
-          <div class="alert alert-info">
+          <div class="alert alert-danger">
            <%= error %>
            </div>
           <% } %>

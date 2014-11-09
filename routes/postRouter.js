@@ -48,13 +48,13 @@ router.post('/comment', function(req, res) {
      var commentPermission = req.session.user ? true : false ;
      console.info(commentPermission);
      if(commentPermission){
-    postService.saveComment(req.body.postId, req.body.postContent, req.session.user, function(err, comment, user){
-        var result  = {};
-        result['comment'] = comment;
-        result['commentTimeStr'] = utils.dateFormat(comment.commentTime);
-        result['user'] = user;
-        res.send(result);
-    }); 
+        postService.saveComment(req.body.postId, req.body.postContent, req.session.user, function(err, comment, user){
+            var result  = {};
+            result['comment'] = comment;
+            result['commentTimeStr'] = utils.dateFormat(comment.commentTime);
+            result['user'] = user;
+            res.send(result);
+        });
      }
      else {
          console.info("please login");

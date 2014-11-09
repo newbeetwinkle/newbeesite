@@ -27,7 +27,8 @@ exports.insertUser = function(username,password,nickname,phone,address,email,cal
 	   	nickname:nickname,
 	   	phone:phone,
 	   	address:address,
-	   	email:util.md5(email),
+        email:email,
+        emailMd5:util.md5(email)
 	    });
 	user.save(function(){
 		callback();
