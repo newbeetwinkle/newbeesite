@@ -1,61 +1,73 @@
 <!DOCTYPE html >
 <% layout('boilerplate') -%>
 
-<link href="/stylesheets/detail.css" rel="stylesheet" >
+<html>
+<head>
+    <title>detail page</title>
+    <link href="/stylesheets/detail.css" rel="stylesheet" >
+    <script src="/javascripts/detail_action.js"></script>
+    <script src="/js/scrollpagination.js"></script>
+</head>
+<body>
 
 <h1><%=post.title %></h1>
-<span>作者：<%=post.author.nickname%></span> <img src=<%="http://www.gravatar.com/avatar/"+post.author.emailMd5 + "?s=25"%>>
-<h5><label type="button" class="label label-primary">浏览数：<%=post.viewCount%></label>  </h5>
+<input id="postId" value='<%=post.postId %>' type="hidden" >
 
-<ul class="post_list">
-<li>
-<div class="well">
+<div class="pre_post_info">
+    <span class="post_author">作者：<%=post.author.nickname%></span>
+    <img class="post_author_avatar avatar_small shadow" src=<%="http://www.gravatar.com/avatar/"+post.author.emailMd5 + "?s=30"%>>
+    <label type="button" class="post_view_count label label-primary">浏览数：<%=post.viewCount%></label>
+</div>
+
+<div class="well post_content">
 <p>
 <%-post.content %>
 </p>
-<time><%=dateFormat(post.createTime) %></time>
+<span class="post_time">发布于 <%=dateFormat(post.createTime) %></span>
 </div>
-</li>
+
+
+<ul class="comment_list">
+    <li>
+        <% if(user) { %>
+            <img class="comment_avatar avatar_mid shadow" src=<%="http://www.gravatar.com/avatar/" + user.emailMd5 + "?s=80"%>>
+        <% } else { %>
+            <img class="comment_avatar avatar_mid shadow" src=<%="http://www.gravatar.com/avatar/?s=80"%>>
+        <% } %>
+        <div class="comment_text">
+            <textarea id="comment_input" placeholder="想说点什么呢？" class="comment_input" maxlength="500"></textarea>
+            <button onclick="submit_comment(<%=post.postId%>);" class="btn btn-info" type="button">发表评论</button>
+        </div>
+    </li>
 </ul>
 
-<div class="input-group">
-    <input id="comment_input" type="text" class="form-control">
-      <span class="input-group-btn">
-        <button onclick="submit_comment(<%=post.postId%>);" class="btn btn-default" type="button">发表评论</button>
-      </span>
-</div>
+<span id="comment_count_board">
+    <% if(comments == undefined || comments.length == 0 ) {%>
+        没人评论，快来抢沙发！
+    <% } else { %>
+        共有 <%=post.commentsCount%> 条评论
+    <% } %>
+</span>
 
-<% if(comments == undefined || comments.length == 0 ) {%>
-    没人评论，快来抢沙发！
-<% } else { %>
-    <ul class="comment_list">
-        <span>共有 <%=post.commentsCount%> 条评论</span>
-        <%for(var i = 0; i<comments.length;i++){ %>
-        <li>
-            <img class="comment_avatar" src=<%="http://www.gravatar.com/avatar/"+comments[i].user.emailMd5 + "?s=80"%>>
-            <div class="comment_text">
-                <label class="comment_nickname"><%=comments[i].user.nickname %></label>
-                <p class="comment_comment_area">
-                    <%=comments[i].content %>
-                </p>
-                <time class="comment_comment_time"><%=dateFormat(comments[i].commentTime) %></time>
-            </div>
-        </li>
-        <% } %>
-    </ul>
-<% } %>
+<ul id="comment_list" class="comment_list">
+    <%for(var i = 0; i<comments.length;i++){ %>
+    <li>
+        <img class="comment_avatar avatar_mid shadow" src=<%="http://www.gravatar.com/avatar/"+comments[i].user.emailMd5 + "?s=80"%>>
+        <div class="comment_text">
+            <label class="comment_nickname"><%=comments[i].user.nickname %></label>
+            <p class="comment_comment_area">
+                <%=comments[i].content %>
+            </p>
+            <time class="comment_comment_time"><%=dateFormat(comments[i].commentTime) %></time>
+        </div>
+    </li>
+    <% } %>
+</ul>
 
-<nav>
-    <ul class="pagination">
-        <li><a href="#">&laquo;</a></li>
-        <%for(var i = 0; i<pageCount;i++){%>
-            <li <%if(pageNow==i+1){%>class="active"<%}%>><a href="/posts/<%=post.postId%>?pageNow=<%=i+1%>"><%=i+1%></a></li>
-        <% } %>
-        <li><a href="#">&raquo;</a></li>
-    </ul>
-</nav>
+<!--
+<div class="loading" id="loading">Wait a moment... it's loading!</div>
+<div class="loading" id="nomoreresults">Sorry, no more results for your pagination demo.</div>
+-->
 
-<script src="/javascripts/detail_action.js"></script>
-
-
-
+</body>
+</html>

@@ -76,7 +76,7 @@ router.get('/queryAllUser', util.checkLogin);
 router.get('/queryAllUser', function(req, res){
 	userService.queryAllUser(function(err, data){
 		if(err){
-			res.send("query  all user failed!");ch
+			res.send("query  all user failed!");
 		} else{
 			res.send(data);
 		}
