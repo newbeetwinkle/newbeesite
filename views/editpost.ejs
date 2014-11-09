@@ -1,14 +1,24 @@
 <% layout('adminlayout') -%>
 
 <h1>发布文章</h1>
+<div class="alert alert-info hide" id="info">
 
-<form  action="/admin/post" method="post">
+</div>
+<form class="form-horizontal" id="editpostform"  action="/admin/post" role="form" method="post">
+	<div class="form-group">
+		<label for="title" class="col-sm-1 control-label">Title</label>
+		<div class="col-sm-8">
+			<input type="input" class="form-control" id="title" name="title" required>
+		</div>
+	</div>
 	<!-- 加载编辑器的容器 -->
-	<script id="container" name="content" type="text/plain">
-	    这里写你的初始化内容
+	<script id="editor" name="content" type="text/plain">
 	</script>
-
-	<input type="submit" id="submit_post" class="btn btn-primary" value="发布">
+	<div class="form-group">
+		<div class="col-sm-offset-1 col-sm-11">
+			<input type="submit" id="submit_post" class="btn btn-primary" value="发布">
+		</div>
+	</div>
 </form>
 
 <!-- 配置文件 -->
@@ -17,5 +27,5 @@
 <script type="text/javascript" src="/ueditor/ueditor.all.js"></script>
 <!-- 实例化编辑器 -->
 <script type="text/javascript">
-    var ue = UE.getEditor('container');
+var ue = UE.getEditor('editor');
 </script>
