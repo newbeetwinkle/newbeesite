@@ -17,7 +17,8 @@ body {
 .post_list li a{
 	display:block; 
 	/*padding:10px 0 10px 10px; */
-	padding:5px 0 5px 10px;
+	padding-bottom: 5px;
+	padding-top: 5px;
 	text-shadow:none;
 	border-radius:2px;
 	cursor:pointer;
@@ -41,9 +42,22 @@ body {
 	 font-size: 20px;
 	 font-family: "Open Sans",Arial,"Hiragino Sans GB","Microsoft YaHei","微软雅黑","STHeiti","WenQuanYi Micro Hei",SimSun,sans-serif;
 }
-.post_list time{
-	font: 500 20px/1.8 Georgia, Times, 'Hiragino Sans GB', \u5B8B\u4F53, serif;
+
+.post_title{
+    font-size: 28px;
 }
+
+.post_time{
+    float: right;
+    color: gray;
+    height: 20px;
+}
+
+.post_view_count{
+    color: gray;
+    height: 20px;
+}
+
 footer {
 	font-size: 15px;
 	width:100%;
