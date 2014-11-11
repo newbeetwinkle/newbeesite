@@ -44,7 +44,17 @@ body {
 }
 
 .post_title{
-    font-size: 28px;
+    font-size: 25px;
+    color: #21759b;
+}
+
+.post_summary{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    line-height: 32px;
+    text-indet: 2em;
 }
 
 .post_time{
@@ -53,7 +63,7 @@ body {
     height: 20px;
 }
 
-.post_view_count{
+.post_view_count_main{
     color: gray;
     height: 20px;
 }
