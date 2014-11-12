@@ -18,7 +18,11 @@ exports.queryOnePost = function(postId,callback){
 
 exports.queryAllPost = function(callback){
 	postDao.findAllPost(callback);
-}
+};
+
+exports.quertPost = function(searchPost, callback){
+    
+};
 
 exports.saveComment = function(postId, postContent, user, callback){
     commentDao.addComment(postId, postContent, user, function(err, comment, user){

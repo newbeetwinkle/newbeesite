@@ -6,6 +6,7 @@ var postService = require('../service/postService');
 
 /* GET home page. */
 router.get('/', function(req, res) {
+	var searchPost = req.query.searchPost;
 	postService.queryAllPost(function(e, posts){
 		posts.forEach(function(element, index, array){
 			if(element.content && element.content.length > 100){
