@@ -17,7 +17,8 @@ body {
 .post_list li a{
 	display:block; 
 	/*padding:10px 0 10px 10px; */
-	padding:5px 0 5px 10px;
+	padding-bottom: 5px;
+	padding-top: 5px;
 	text-shadow:none;
 	border-radius:2px;
 	cursor:pointer;
@@ -41,9 +42,32 @@ body {
 	 font-size: 20px;
 	 font-family: "Open Sans",Arial,"Hiragino Sans GB","Microsoft YaHei","微软雅黑","STHeiti","WenQuanYi Micro Hei",SimSun,sans-serif;
 }
-.post_list time{
-	font: 500 20px/1.8 Georgia, Times, 'Hiragino Sans GB', \u5B8B\u4F53, serif;
+
+.post_title{
+    font-size: 25px;
+    color: #21759b;
 }
+
+.post_summary{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    line-height: 32px;
+    text-indet: 2em;
+}
+
+.post_time{
+    float: right;
+    color: gray;
+    height: 20px;
+}
+
+.post_view_count_main{
+    color: gray;
+    height: 20px;
+}
+
 footer {
 	font-size: 15px;
 	width:100%;
@@ -79,4 +103,37 @@ footer a:hover {
 .avatar_small{
     width: 30px;
     border-radius: 2px;
+}
+
+/* Tab style */
+#scrollUp {
+    bottom: 0;
+    right: 30px;
+    width: 70px;
+    height: 70px;
+    margin-bottom: -10px;
+    padding: 10px 5px;
+    font: 14px/20px sans-serif;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #fff;
+    color: #828282;
+    -webkit-box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+    background-color: #E6E6E6;
+    background-image: -moz-linear-gradient(top, #EBEBEB, #DEDEDE);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#EBEBEB), to(#DEDEDE));
+    background-image: -webkit-linear-gradient(top, #EBEBEB, #DEDEDE);
+    background-image: -o-linear-gradient(top, #EBEBEB, #DEDEDE);
+    background-image: linear-gradient(to bottom, #EBEBEB, #DEDEDE);
+    background-repeat: repeat-x;
+    -webkit-transition: margin-bottom 150ms linear;
+    -moz-transition: margin-bottom 150ms linear;
+    -o-transition: margin-bottom 150ms linear;
+    transition: margin-bottom 150ms linear;
+}
+
+#scrollUp:hover {
+    margin-bottom: 0;
 }

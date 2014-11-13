@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var userService = require('../service/userService');
-var postService = require('../service/postService');
 var util = require('../utils');
 
 //locals to change module dynamic

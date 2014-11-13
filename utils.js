@@ -30,6 +30,15 @@ exports.md5 = function(data) {
     return crypto.createHash('md5').update(data).digest('hex').toLowerCase();
 }
 
+
+exports.removeHTMLTag = function(str) {
+    str = str.replace(/<\/?[^>]*>/g, '');       //去除HTML tag
+    str = str.replace(/[ | ]*\n/g, '\n');       //去除行尾空白
+    str = str.replace(/\n[\s| | ]*\r/g,'\n');   //去除多余空行
+    str = str.replace(/&nbsp;/ig,' ');          //去掉&nbsp;
+    return str;
+}
+
 exports.checkLogin =  function(req,res,next){
 	if (!req.session.user) {
 		req.flash("error","游客请登录！");
