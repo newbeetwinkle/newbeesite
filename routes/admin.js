@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var adminService = require('../service/adminService');
+var postService = require('../service/postService');
 var util = require('../utils');
 var path = require('path');
 
@@ -64,6 +65,17 @@ router.get('/user',function(req,res){
 			res.redirect("/admin");
 		}
 	});
+})
+
+/* My post page */
+router.get('/myposts',function(req,res){
+     postService.queryUserPost(req.session.user._id, function(err, doc){
+         if(err){
+             res.send(err);
+         } else {
+             res.render("myposts",{"posts":doc});
+         }
+     });
 })
 
 module.exports = router;

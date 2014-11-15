@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<% layout('adminlayout') -%>
+<head>
+</head>
+<table class="table">
+	<tr>
+		<th>标题</th>
+		<th>作者</th>
+		<th>日期</th>
+		<th>操作</th>
+	</tr>
+<% for(var i = 0 ; i < posts.length ; i++) { %>
+	<tr>
+		<td><%= posts[i].title%></td>
+		<td><%= posts[i].author.nickname %></td>
+		<td><%=dateFormat(posts[i].createTime) %></td>
+		<td>
+			<a class="btn btn-default btn-sm" herf="">修改</a>
+			<a class="btn btn-default btn-sm" herf="">删除</a>
+		</td>
+	<tr>
+<% } %>
+</table>

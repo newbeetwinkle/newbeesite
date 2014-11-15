@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var Utils = require('../utils.js');
 var Schema = mongoose.Schema;
 var autoIncrement = require('mongoose-auto-increment');
 require('./db');
@@ -45,6 +44,20 @@ exports.findAllPost = function(callback){
         } else {
             callback(null,doc);
         }
+    })
+};
+
+/* Find one user's posts */
+exports.findUserPost = function(user_id, callback){
+    PostModel.find({author: user_id})
+        .populate('author')
+        .sort({createTime: -1})
+        .find(function(e, doc){
+            if(e){
+                callback(e);
+            } else {
+                callback(null,doc);
+            }
     })
 };
 

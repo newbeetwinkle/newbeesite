@@ -20,6 +20,11 @@ exports.queryAllPost = function(callback){
 	postDao.findAllPost(callback);
 }
 
+
+exports.queryUserPost = function(user_id, callback){
+    postDao.findUserPost(user_id, callback);
+}
+
 exports.saveComment = function(postId, postContent, user, callback){
     commentDao.addComment(postId, postContent, user, function(err, comment, user){
         if(err) {
