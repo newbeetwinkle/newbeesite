@@ -17,7 +17,7 @@ router.use(function(req,res,next){
 });
 
 /* GET one post info. */
-router.get('/:postId?', function(req, res) {
+router.get('/:postId', function(req, res) {
   postService.queryOnePost(req.params.postId,function(err, post){
       if(err){
           res.send("query " + req.params.postId + "failed!");

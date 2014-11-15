@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<% layout('adminlayout') -%>
+<% layout('adminlayout') %>
 <head>
 </head>
 <table class="table">
@@ -15,8 +15,8 @@
 		<td><%= posts[i].author.nickname %></td>
 		<td><%=dateFormat(posts[i].createTime) %></td>
 		<td>
-			<a class="btn btn-default btn-sm" herf="">修改</a>
-			<a class="btn btn-default btn-sm" herf="">删除</a>
+			<a class="btn btn-default btn-sm" href="/admin/myposts/<%=posts[i].postId%>">修改</a>
+			<a class="btn btn-default btn-sm" href="">删除</a>
 		</td>
 	<tr>
 <% } %>

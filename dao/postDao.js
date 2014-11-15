@@ -13,7 +13,7 @@ var _Post = new Schema({
     postId : Number,
     createTime : { type: Date, default: Date.now },
     modifyTime : { type: Date, default: Date.now },
-    deleted : { type: Boolean, default: false },
+    deleted : { type: Boolean, default: false }
 });
 
 _Post.plugin(autoIncrement.plugin, {
@@ -61,27 +61,6 @@ exports.findUserPost = function(user_id, callback){
     })
 };
 
-/* Add comment */
-exports.addComment = function(postId, postContent, user, callback){
-    var commentTime = Date.now();
-    var commentId = postId + '' + commentTime;
-    PostModel.findOneAndUpdate({postId : postId},
-        {$push : {comments : {commentId : commentId, user : user._id, content : postContent, commentTime : commentTime}}},
-        {new : true},
-        function (err, data) {
-            if(err) {
-                callback(err);
-            }else{
-                var result = {};
-                result.nickname = user.nickname;
-                result.emailMd5 = user.emailMd5;
-                result.content = postContent;
-                result.time = commentTime;
-                callback(null, result);
-            }
-    })
-};
-
 exports.addPost = function(postObject,callback){
         var post = new PostModel({
             title : postObject.title,
@@ -91,4 +70,18 @@ exports.addPost = function(postObject,callback){
     post.save(function(){
         callback();
     });
+}
+
+/* modify one post */
+exports.modifyPost = function(postObject,callback){
+    PostModel.findOneAndUpdate({postId : postObject.postId},
+        {$set : {title : postObject.title, content : postObject.content, modifyTime : Date.now()}},
+        {new : true},
+        function (err, data) {
+            if(err) {
+                callback(err);
+            }else{
+                callback(null, data);
+            }
+        });
 }

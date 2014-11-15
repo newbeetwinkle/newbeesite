@@ -1,5 +1,5 @@
 <!DOCTYPE html >
-<% layout('boilerplate') -%>
+<% layout('boilerplate') %>
 <html>
 	<head>		
         <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
@@ -16,7 +16,7 @@
     <a href="/posts/<%=posts[i].postId%>">
         <span class="post_title"><%=posts[i].title %></span>
     </a>
-    <div class="post_summary"><%-posts[i].content %></div>
+    <div class="post_summary"><%=posts[i].content %></div>
     <div>
         <span class="post_time">发布于 <%=dateFormat(posts[i].createTime) %></span>
         <span class="post_view_count_main">浏览： <%=posts[i].viewCount %></span>
