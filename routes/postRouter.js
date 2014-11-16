@@ -17,7 +17,7 @@ router.use(function(req,res,next){
 });
 
 /* GET one post info. */
-router.get('/:postId?', function(req, res) {
+router.get('/:postId', function(req, res) {
   postService.queryOnePost(req.params.postId,function(err, post){
       if(err){
           res.send("query " + req.params.postId + "failed!");
@@ -52,6 +52,7 @@ router.post('/comment', function(req, res) {
             var result  = {};
             result['comment'] = comment;
             result['commentTimeStr'] = utils.dateFormat(comment.commentTime);
+            result['avatarURL'] = utils.getAvatarURL(user.emailMd5, 80);
             result['user'] = user;
             result['count'] = count;
             res.send(result);
@@ -89,7 +90,7 @@ router.post('/comment_list', function(req, res) {
 });
 
 function makeCommentUnit(emailMd5, nickname, content, commentTime){
-    return '<li><img class="comment_avatar shadow" src="http://www.gravatar.com/avatar/' + emailMd5 + '?s=80">' +
+    return '<li><img class="comment_avatar shadow" src="' + utils.getAvatarURL(emailMd5, 80) + '">' +
         '<div class="comment_text"><label class="comment_nickname">' + nickname + '</label>' +
         '<p class="comment_comment_area">' + content + '</p>' +
         '<time class="comment_comment_time">' + commentTime + '</time></div></li>';

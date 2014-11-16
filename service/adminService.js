@@ -1,19 +1,26 @@
 var postDao = require('../dao/postDao');
 var userDao = require('../dao/userDao');
 
-exports.savePost = function(postTitle, postContent, userid, callback){
-	var post = {
-		title: postTitle,
-		content : postContent,
-		author: userid
-	}
-	postDao.addPost(post, function(err, doc){
-		if(err) {
-			callback(err);
-		}else{
-			callback(err, true);
-		}
-	});
+exports.savePost = function(act, post, callback){
+    if(act == "new") {
+        // new post
+        postDao.addPost(post, function(err, doc){
+            if(err) {
+                callback(err);
+            }else{
+                callback(err, true);
+            }
+        });
+    } else {
+        // modify post
+        postDao.modifyPost(post, function(err, doc){
+            if(err) {
+                callback(err);
+            }else{
+                callback(err, true);
+            }
+        });
+    }
 }
 
 exports.showUsers = function(callback){

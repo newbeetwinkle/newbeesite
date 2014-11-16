@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var adminService = require('../service/adminService');
+var postService = require('../service/postService');
 var util = require('../utils');
 var path = require('path');
 
@@ -42,17 +43,23 @@ router.get('/', function(req, res) {
 });
 
 router.get('/post',function(req, res) {
-	res.render('editpost',{});
+	res.render('editpost',{"act":"new"});
 });
 
 router.post('/post',function(req, res) {
-	adminService.savePost(req.body.title, req.body.content, req.session.user._id, function(err, success){
-		if(success){
-			res.redirect('/');
-		} else{
-			res.send(err);
-		}
-	})
+    var post = {
+        title: req.body.title,
+        content : req.body.content,
+        author: req.session.user._id,
+        postId: req.body.postId
+    }
+    adminService.savePost(req.body.act, post, function(err, success){
+        if(success){
+            res.redirect('/');
+        } else{
+            res.send(err);
+        }
+    });
 });
 
 router.get('/user',function(req,res){
@@ -64,6 +71,28 @@ router.get('/user',function(req,res){
 			res.redirect("/admin");
 		}
 	});
+})
+
+/* My post page */
+router.get('/myposts',function(req,res){
+     postService.queryUserPost(req.session.user._id, function(err, doc){
+         if(err){
+             res.send(err);
+         } else {
+             res.render("myposts",{"posts":doc});
+         }
+     });
+})
+
+/* modify one post */
+router.get('/myposts/:postId',function(req,res){
+    postService.queryOnePost(req.params.postId, function(err, doc){
+        if(err){
+            res.send(err);
+        } else {
+            res.render("editpost",{"post":doc, "act":"modify"});
+        }
+    });
 })
 
 module.exports = router;

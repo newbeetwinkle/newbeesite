@@ -140,3 +140,7 @@ var respond = function(static_url, callback) {
     return;
   };
 };
+
+exports.getAvatarURL = function(md5, size) {
+    return "http://gravatar.com/avatar/" + md5 + "?s=" + size;
+}

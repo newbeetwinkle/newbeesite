@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var Utils = require('../utils.js');
 var Schema = mongoose.Schema;
 var autoIncrement = require('mongoose-auto-increment');
 require('./db');
@@ -14,7 +13,7 @@ var _Post = new Schema({
     postId : Number,
     createTime : { type: Date, default: Date.now },
     modifyTime : { type: Date, default: Date.now },
-    deleted : { type: Boolean, default: false },
+    deleted : { type: Boolean, default: false }
 });
 
 _Post.plugin(autoIncrement.plugin, {
@@ -48,23 +47,16 @@ exports.findAllPost = function(callback){
     })
 };
 
-/* Add comment */
-exports.addComment = function(postId, postContent, user, callback){
-    var commentTime = Date.now();
-    var commentId = postId + '' + commentTime;
-    PostModel.findOneAndUpdate({postId : postId},
-        {$push : {comments : {commentId : commentId, user : user._id, content : postContent, commentTime : commentTime}}},
-        {new : true},
-        function (err, data) {
-            if(err) {
-                callback(err);
-            }else{
-                var result = {};
-                result.nickname = user.nickname;
-                result.emailMd5 = user.emailMd5;
-                result.content = postContent;
-                result.time = commentTime;
-                callback(null, result);
+/* Find one user's posts */
+exports.findUserPost = function(user_id, callback){
+    PostModel.find({author: user_id})
+        .populate('author')
+        .sort({createTime: -1})
+        .find(function(e, doc){
+            if(e){
+                callback(e);
+            } else {
+                callback(null,doc);
             }
     })
 };
@@ -78,4 +70,18 @@ exports.addPost = function(postObject,callback){
     post.save(function(){
         callback();
     });
+}
+
+/* modify one post */
+exports.modifyPost = function(postObject,callback){
+    PostModel.findOneAndUpdate({postId : postObject.postId},
+        {$set : {title : postObject.title, content : postObject.content, modifyTime : Date.now()}},
+        {new : true},
+        function (err, data) {
+            if(err) {
+                callback(err);
+            }else{
+                callback(null, data);
+            }
+        });
 }

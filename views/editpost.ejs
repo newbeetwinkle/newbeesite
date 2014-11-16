@@ -1,14 +1,24 @@
 <% layout('adminlayout') -%>
 
-<h1>发布文章</h1>
+<h1>
+    <%if(act == "new"){%>
+        发布文章
+    <%} else {%>
+        修改文章
+    <%}%>
+</h1>
 <div class="alert alert-info hide" id="info">
 
 </div>
 <form class="form-horizontal" id="editpostform"  action="/admin/post" role="form" method="post">
-	<div class="form-group">
+    <input type="input" id="act" name="act" hidden="hidden" value="<%=act%>" >
+    <%if(act == "modify"){%>
+        <input type="input" id="postId" name="postId" hidden="hidden"  value="<%=post.postId%>" >
+    <%}%>
+    <div class="form-group">
 		<label for="title" class="col-sm-1 control-label">Title</label>
 		<div class="col-sm-8">
-			<input type="input" class="form-control" id="title" name="title" required>
+			<input type="input" class="form-control" id="title" name="title" required <%if(act == "modify"){%> value="<%=post.title%>" <%}%> >
 		</div>
 	</div>
 	<!-- 加载编辑器的容器 -->
@@ -27,5 +37,10 @@
 <script type="text/javascript" src="/ueditor/ueditor.all.js"></script>
 <!-- 实例化编辑器 -->
 <script type="text/javascript">
-var ue = UE.getEditor('editor');
+    var ue = UE.getEditor('editor');
+    ue.ready(function() {
+        <%if(act == "modify"){%>
+            ue.setContent('<%-post.content%>');
+        <%}%>
+    });
 </script>

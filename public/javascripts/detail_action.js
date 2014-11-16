@@ -17,15 +17,15 @@ function submit_comment(postId){
         data: {postId : postId, postContent : comment},
         dataType: "json",
         success: function(data){
-            $('#comment_list').prepend(makeCommentUnit(data['user'].emailMd5, data['user'].nickname, data['comment'].content, data['commentTimeStr']));
+            $('#comment_list').prepend(makeCommentUnit(data['avatarURL'], data['user'].nickname, data['comment'].content, data['commentTimeStr']));
             $('#comment_count_board').html('共有 '+ data['count'] +' 条评论');
             $("#comment_input").val('');
         }
     });
 }
 
-function makeCommentUnit(emailMd5, nickname, content, commentTime){
-    return '<li><img class="comment_avatar shadow" src="http://www.gravatar.com/avatar/' + emailMd5 + '?s=80">' +
+function makeCommentUnit(avatarURL, nickname, content, commentTime){
+    return '<li><img class="comment_avatar shadow" src="' + avatarURL + '">' +
     '<div class="comment_text"><label class="comment_nickname">' + nickname + '</label>' +
     '<p class="comment_comment_area">' + content + '</p>' +
     '<time class="comment_comment_time">' + commentTime + '</time></div></li>';
