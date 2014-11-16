@@ -48,6 +48,19 @@ exports.findAllPost = function(callback){
     })
 };
 
+exports.findPostByContent = function(content,callback) {
+    var pattern = new RegExp(content, "i");
+    PostModel.find({
+        "$or":[{title:pattern}, {content:pattern}]
+    }).sort({createTime: -1}).find(function(e, doc){
+        if(e){
+            callback(e);
+        }else {
+            callback(null, doc);
+        }
+    });
+};
+
 /* Add comment */
 exports.addComment = function(postId, postContent, user, callback){
     var commentTime = Date.now();
