@@ -69,7 +69,7 @@
                          </li>
                        <li >
                            <% if(user) { %>
-                           <a href="/admin/post"><img class="avatar_small" src=<%="http://www.gravatar.com/avatar/" + user.emailMd5 + "?s=30"%>>
+                           <a href="/admin/post"><img class="avatar_small" src=<%=getAvatarURL(user.emailMd5, 30)%>>
                            </a>
                            <% }%>
                        </li>

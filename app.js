@@ -56,6 +56,7 @@ app.use('/posts', posts);
 app.use('/admin',admin);
 
 app.locals.dateFormat= Utils.dateFormat;
+app.locals.getAvatarURL= Utils.getAvatarURL;
 app.locals.success = null ;
 app.locals.error = null ;
 

@@ -16,7 +16,7 @@
 
 <div class="pre_post_info">
     <span class="post_author">作者：<%=post.author.nickname%></span>
-    <img class="post_author_avatar avatar_small shadow" src=<%="http://www.gravatar.com/avatar/"+post.author.emailMd5 + "?s=30"%>>
+    <img class="post_author_avatar avatar_small shadow" src=<%=getAvatarURL(post.author.emailMd5, 30)%>>
     <label type="button" class="post_view_count label label-primary">浏览数：<%=post.viewCount%></label>
 </div>
 
@@ -31,9 +31,9 @@
 <ul class="comment_list">
     <li>
         <% if(user) { %>
-            <img class="comment_avatar avatar_mid shadow" src=<%="http://www.gravatar.com/avatar/" + user.emailMd5 + "?s=80"%>>
+            <img class="comment_avatar avatar_mid shadow" src=<%=getAvatarURL(user.emailMd5, 80)%>>
         <% } else { %>
-            <img class="comment_avatar avatar_mid shadow" src=<%="http://www.gravatar.com/avatar/?s=80"%>>
+            <img class="comment_avatar avatar_mid shadow" src=<%=getAvatarURL('', 80)%>>
         <% } %>
         <div class="comment_text">
             <textarea id="comment_input" placeholder="想说点什么呢？" class="comment_input" maxlength="500"></textarea>
@@ -53,7 +53,7 @@
 <ul id="comment_list" class="comment_list">
     <%for(var i = 0; i<comments.length;i++){ %>
     <li>
-        <img class="comment_avatar avatar_mid shadow" src=<%="http://www.gravatar.com/avatar/"+comments[i].user.emailMd5 + "?s=80"%>>
+        <img class="comment_avatar avatar_mid shadow" src=<%=getAvatarURL(comments[i].user.emailMd5, 80)%>>
         <div class="comment_text">
             <label class="comment_nickname"><%=comments[i].user.nickname %></label>
             <p class="comment_comment_area">
