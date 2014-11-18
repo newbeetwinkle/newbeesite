@@ -18,7 +18,11 @@ exports.queryOnePost = function(postId,callback){
 
 exports.queryAllPost = function(callback){
 	postDao.findAllPost(callback);
-}
+};
+
+exports.queryPostByContent = function(searchPost, callback){
+    postDao.findPostByContent(searchPost,callback);
+};
 
 
 exports.queryUserPost = function(user_id, callback){

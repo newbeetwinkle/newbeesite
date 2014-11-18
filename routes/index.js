@@ -6,7 +6,8 @@ var util = require('../utils');
 
 /* GET home page. */
 router.get('/', function(req, res) {
-	postService.queryAllPost(function(e, posts){
+	var searchPost = req.query.searchPost;
+	postService.queryPostByContent(searchPost, function(e, posts){
 		posts.forEach(function(element, index, array){
 			if(element.content){
                 var pureText = util.removeHTMLTag(element.content);

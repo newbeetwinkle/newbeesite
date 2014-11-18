@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var Utils = require('../utils.js');
 var Schema = mongoose.Schema;
 var autoIncrement = require('mongoose-auto-increment');
 require('./db');
@@ -44,6 +45,40 @@ exports.findAllPost = function(callback){
         } else {
             callback(null,doc);
         }
+    })
+};
+
+exports.findPostByContent = function(content,callback) {
+    var pattern = new RegExp(content, "i");
+    PostModel.find({
+        "$or":[{title:pattern}, {content:pattern}]
+    }).sort({createTime: -1}).find(function(e, doc){
+        if(e){
+            callback(e);
+        }else {
+            callback(null, doc);
+        }
+    });
+};
+
+/* Add comment */
+exports.addComment = function(postId, postContent, user, callback){
+    var commentTime = Date.now();
+    var commentId = postId + '' + commentTime;
+    PostModel.findOneAndUpdate({postId : postId},
+        {$push : {comments : {commentId : commentId, user : user._id, content : postContent, commentTime : commentTime}}},
+        {new : true},
+        function (err, data) {
+            if(err) {
+                callback(err);
+            }else{
+                var result = {};
+                result.nickname = user.nickname;
+                result.emailMd5 = user.emailMd5;
+                result.content = postContent;
+                result.time = commentTime;
+                callback(null, result);
+            }
     })
 };
 
