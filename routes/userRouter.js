@@ -3,7 +3,7 @@ var router = express.Router();
 var userService = require('../service/userService');
 var util = require('../utils');
 
-//locals to change module dynamic
+//locals is used to change the view dynamic
 router.use(function(req,res,next){
  res.locals.user = req.session.user;
  var err = req.flash("error");
