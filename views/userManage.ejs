@@ -22,8 +22,8 @@
 		<td><%= users[i].address%></td>
 		<td><%= users[i].email%></td>
 		<td>
-			<a class="btn btn-default btn-sm" herf="/admin/user?act='modify'&userid=<%=users[i]._id%>">修改</a>
-			<a class="btn btn-default btn-sm" herf="/admin/user?act='delete'&userid=<%=users[i]._id%>">删除</a>
+			<a class="btn btn-default btn-sm" href="/admin/user/update/<%=users[i]._id%>">修改</a>
+			<a class="btn btn-default btn-sm" href="/admin/user/delete/<%=users[i]._id%>">删除</a>
 		</td>
 	<tr>
 <% } %>

@@ -64,3 +64,7 @@ exports.findOneUser = function(username,callback){
         }
     });
 };
+
+exports.deleteUser = function(userId,callback){
+	UserModel.update("_id":userId)
+};

@@ -16,3 +16,7 @@ exports.login = function(username,password,callback){
 exports.findOneUser = function(username,callback){
     	userDao.findOneUser(username,callback);
 };
+
+exports.deleteUser = function(userId,callback){
+	userDao.
+};

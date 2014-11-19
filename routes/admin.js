@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var adminService = require('../service/adminService');
 var postService = require('../service/postService');
+var userService = require("../service/userService");
 var util = require('../utils');
 var path = require('path');
 
@@ -71,6 +72,11 @@ router.get('/user',function(req,res){
 			res.redirect("/admin");
 		}
 	});
+});
+
+//TO DO
+router.get("/user/delete/:userId",function(req,res){
+    userService.
 })
 
 /* My post page */
