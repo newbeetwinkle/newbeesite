@@ -27,7 +27,7 @@ var PostModel = mongoose.model('Post', _Post);
 exports.findOnePost = function(postId,callback){
 
     // query, update, options
-    PostModel.findOneAndUpdate({postId : postId}, {$inc : {viewCount : 1}}, {new : true})
+    PostModel.findOneAndUpdate({postId : postId, deleted : false}, {$inc : {viewCount : 1}}, {new : true})
         .populate('author')
         .exec(function (err, data) {
             if(err) {
@@ -39,7 +39,7 @@ exports.findOnePost = function(postId,callback){
 };
 
 exports.findAllPost = function(callback){
-    PostModel.find({}).sort({createTime: -1}).find(function(e, doc){
+    PostModel.find({deleted : false}).sort({createTime: -1}).find(function(e, doc){
         if(e){
             callback(e);
         } else {
@@ -51,7 +51,8 @@ exports.findAllPost = function(callback){
 exports.findPostByContent = function(content,callback) {
     var pattern = new RegExp(content, "i");
     PostModel.find({
-        "$or":[{title:pattern}, {content:pattern}]
+        "$or":[{title:pattern}, {content:pattern}],
+        deleted : false
     }).sort({createTime: -1}).find(function(e, doc){
         if(e){
             callback(e);
@@ -61,30 +62,9 @@ exports.findPostByContent = function(content,callback) {
     });
 };
 
-/* Add comment */
-exports.addComment = function(postId, postContent, user, callback){
-    var commentTime = Date.now();
-    var commentId = postId + '' + commentTime;
-    PostModel.findOneAndUpdate({postId : postId},
-        {$push : {comments : {commentId : commentId, user : user._id, content : postContent, commentTime : commentTime}}},
-        {new : true},
-        function (err, data) {
-            if(err) {
-                callback(err);
-            }else{
-                var result = {};
-                result.nickname = user.nickname;
-                result.emailMd5 = user.emailMd5;
-                result.content = postContent;
-                result.time = commentTime;
-                callback(null, result);
-            }
-    })
-};
-
 /* Find one user's posts */
 exports.findUserPost = function(user_id, callback){
-    PostModel.find({author: user_id})
+    PostModel.find({author: user_id, deleted : false})
         .populate('author')
         .sort({createTime: -1})
         .find(function(e, doc){
@@ -105,6 +85,20 @@ exports.addPost = function(postObject,callback){
     post.save(function(){
         callback();
     });
+}
+
+/* Delete post */
+exports.deletePost = function(postId,callback){
+    PostModel.findOneAndUpdate({postId : postId},
+        {$set : {deleted : true} },
+        {new : true},
+        function (err, data) {
+            if(err) {
+                callback(err);
+            }else{
+                callback(null, data);
+            }
+        });
 }
 
 /* modify one post */

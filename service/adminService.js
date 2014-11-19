@@ -23,6 +23,17 @@ exports.savePost = function(act, post, callback){
     }
 }
 
+exports.deletePost = function(postId, callback){
+    postDao.deletePost(postId, function(err, doc){
+        if(err) {
+            callback(err);
+        }else{
+            callback(err, true);
+        }
+    });
+}
+
+
 exports.showUsers = function(callback){
 	userDao.findAllUser(function(err,data){
 		if (err) {
