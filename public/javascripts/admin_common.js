@@ -25,6 +25,22 @@ function widthFunctions(e) {
 	}
 }
 
+function deletePost(postId) {
+    if(confirm("确定删除文章？")) {
+        $.ajax({
+            url: '/admin/post/' + postId,
+            type: 'DELETE',
+            success: function(result) {
+                if(result == true){
+                    alert("删除成功");
+                    window.location = "/admin/myposts";
+                }
+            }
+        });
+    }
+}
+
+
 $('#editpostform').submit(function () {
 	var  content = UE.getEditor('editor').getContent() || '';
 	content = $.trim(content);
@@ -35,4 +51,5 @@ $('#editpostform').submit(function () {
 	}
 });
 
-widthFunctions();	
+widthFunctions();
+

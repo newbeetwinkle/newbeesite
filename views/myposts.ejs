@@ -16,7 +16,7 @@
 		<td><%=dateFormat(posts[i].createTime) %></td>
 		<td>
 			<a class="btn btn-default btn-sm" href="/admin/myposts/<%=posts[i].postId%>">修改</a>
-			<a class="btn btn-default btn-sm" href="">删除</a>
+			<a class="btn btn-default btn-sm" onclick="deletePost(<%=posts[i].postId%>);">删除</a>
 		</td>
 	<tr>
 <% } %>

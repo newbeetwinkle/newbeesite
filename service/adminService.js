@@ -1,5 +1,6 @@
 var postDao = require('../dao/postDao');
 var userDao = require('../dao/userDao');
+var commentDao = require('../dao/commentDao');
 
 exports.savePost = function(act, post, callback){
     if(act == "new") {
@@ -28,7 +29,13 @@ exports.deletePost = function(postId, callback){
         if(err) {
             callback(err);
         }else{
-            callback(err, true);
+            commentDao.deleteAllComments(postId, function(err, cb){
+                if(err) {
+                    callback(err);
+                }else{
+                    callback(err, true);
+                }
+            });
         }
     });
 }

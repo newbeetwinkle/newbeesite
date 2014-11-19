@@ -35,7 +35,7 @@ exports.addComment = function(postId, postContent, user, callback){
 
 /* get comments count of one post */
 exports.getCommentsCount = function(postId, callback){
-    CommentModel.count({postId : postId}, function(err, count){
+    CommentModel.count({postId : postId, deleted : false}, function(err, count){
         if(err){
             callback(err);
         }else{
@@ -46,7 +46,7 @@ exports.getCommentsCount = function(postId, callback){
 
 /* find comments */
 exports.findComments = function(postId, index, count, callback){
-    CommentModel.find({postId : postId})
+    CommentModel.find({postId : postId, deleted : false})
         .populate('user')
         .sort({commentTime: -1})
         .skip(index)
@@ -58,4 +58,19 @@ exports.findComments = function(postId, index, count, callback){
                 callback(null,doc);
             }
     });
+}
+
+/* delete all comments of a post */
+exports.deleteAllComments = function(postId, callback){
+    CommentModel.findOneAndUpdate({postId : postId},
+        {$set : {deleted : true} },
+        {new : true},
+        function (err, data) {
+            if(err) {
+                callback(err);
+            }else{
+
+                callback(null, data);
+            }
+        });
 }

@@ -95,4 +95,15 @@ router.get('/myposts/:postId',function(req,res){
     });
 })
 
+/* delete post */
+router.delete('/post/:postId', function(req, res){
+    adminService.deletePost(req.params.postId, function(err, result){
+       if(err){
+           res.send(err);
+       } else {
+           res.send(result);
+       }
+    });
+})
+
 module.exports = router;
