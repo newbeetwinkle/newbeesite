@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<% layout('adminlayout') %>
+<head>
+       <style type="text/css">
+
+       </style>
+</head>
+<form method="post"> 
+<table class="table table-bordered table-hover">
+	<tr>
+		<td>用户名</td>
+		<td><input type="textbox" name="username" class="form-control" value="<%=user.username%>"></td>
+	</tr>
+	<tr>
+		<td>昵称</td>
+		<td><input type="textbox" name="nickname" class="form-control" value="<%=user.nickname%>"></td>
+	</tr>
+	<tr>
+		<td>邮箱</td>
+		<td><input type="textbox" name="email" class="form-control" value="<%=user.email%>"></td>
+	</tr>
+	<tr>
+		<td>角色</td>
+		<td>
+			<select id="userRole" class="form-control" name="role" >
+				<% if( user.role == 0){ %>
+					<option>普通用户</option>
+					<option selected="selected">管理员</option>
+				<% } else { %>
+					<option selected="selected">普通用户</option>
+					<option>管理员</option>
+				<% } %>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		<input type="submit" class="btn btn-primary btn-md" id="modify-btn" value="更新用户信息"  name="modifyUser"/>
+		</td>
+	</tr>
+</table>
+</form>

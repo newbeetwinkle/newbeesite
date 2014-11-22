@@ -3,7 +3,7 @@ var router = express.Router();
 var userService = require('../service/userService');
 var util = require('../utils');
 
-//locals to change module dynamic
+//locals is used to change the view dynamic
 router.use(function(req,res,next){
  res.locals.user = req.session.user;
  var err = req.flash("error");
@@ -32,9 +32,16 @@ router.post('/register', function(req, res) {
  		 	req.body.telephone,
  		 	req.body.addr,
  		 	req.body.email,
- 		 	function(){
-  				req.flash("success",req.body.username+"注册成功");
-  				res.redirect('/users/login');
+ 		 	function(err,status){
+  				if (err) {
+  					res.render("error");
+  				}else if (status) {
+  					req.flash("success",req.body.username+"注册成功");
+  					res.redirect('/users/login');  					
+  				}else{
+  					req.flash("error","用户名"+req.body.username+"已经存在!");
+  					res.redirect('/users/login');
+  				}
   			}
   		)
 	}
@@ -52,10 +59,9 @@ router.get('/login',function(req,res){
 });
 
 router.post('/login',function(req,res){
-	userService.login(req.body.username,req.body.password,function(err ,data){	
-		if (data) {
-			req.session.user = data;
-			//why here is not ok to response
+	userService.login(req.body.username,req.body.password,function(err ,user){	
+		if (user) {
+			req.session.user = user;
 			// req.flash("success",req.body.username+"登录成功！");
 			res.redirect('/');
 		} else {			
@@ -70,6 +76,16 @@ router.get('/logout',function(req,res){
 	req.session.user = null;
 	res.redirect("/");
 })
+
+router.get('/userlist',function(req,res){
+	userService.allUser(function(err,users){
+		if (err) {
+			res.render("error");
+		}else{
+			res.render("userlist",{"users":users});
+		}
+	})
+});
 
 router.get('/queryAllUser', util.checkLogin);
 router.get('/queryAllUser', function(req, res){
