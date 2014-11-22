@@ -52,6 +52,16 @@
         </div>
       </div>
       <div id="content" class="col-xs-10">
+        <% if (success) { %>
+            <div class="alert alert-success">
+        <%= success %>
+        </div>
+        <% } %>
+        <% if (error) { %>
+        <div class="alert alert-danger">
+         <%= error %>
+         </div>
+        <% } %>       
       <%-body%>
       </div>
     </div>

@@ -6,6 +6,17 @@ var userService = require("../service/userService");
 var util = require('../utils');
 var path = require('path');
 
+//locals is used to change the view dynamic
+router.use(function(req,res,next){
+ res.locals.user = req.session.user;
+ var err = req.flash("error");
+ res.locals.error =  err.length ? err : null ;
+ var success = req.flash("success");
+ res.locals.success = success.length ? success : null ;
+  next();
+});
+
+
 router.all("/ueditor", util.ueditor('public', function(req, res, next) {
   // ueditor 客户发起上传图片请求
   if(req.query.action === 'uploadimage'){
@@ -74,9 +85,43 @@ router.get('/user',function(req,res){
 	});
 });
 
-//TO DO
 router.get("/user/delete/:userId",function(req,res){
-    userService.
+    userService.deleteUser(req.params.userId,function(err,status){
+      if (err) {
+        res.render("error");
+      }else{
+        req.flash("success","Delete user success!");
+        res.redirect("/admin/user");
+      }
+    })
+})
+
+router.get("/user/update/:userId",function(req,res){
+    var user = userService.findUserById(req.params.userId,function(e,user){
+      if (e) {
+        res.render("error");
+      }else{
+        res.render("modifyUser",{"user":user});
+      }
+    })
+
+})
+
+router.post("/user/update/:userId",function(req,res){
+    userService.findUserById(req.params.userId,function(e,user){
+        var username = req.body.username;
+        var nickname = req.body.nickname;
+        var email = req.body.email;
+        var role = ( req.body.role == "普通用户" ? 1 : 0 );
+        userService.updateUser(req.params.userId,username,nickname,email,role,function(e,status){
+          if (e) {
+            res.render("error");
+          }else{
+            req.flash("success","Update user success!");
+            res.redirect("/admin/user");
+          }
+        });
+    });    
 })
 
 /* My post page */

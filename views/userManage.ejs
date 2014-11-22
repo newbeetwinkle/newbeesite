@@ -14,17 +14,33 @@
 		<th>电子邮箱</th>
 		<th>操作</th>
 	</tr>
-<% for(var i = 0 ; i < users.length ; i++) { %>
-	<tr>
-		<td><%= users[i].username%></td>
-		<td><%= users[i].nickname%></td>
-		<td><%= users[i].phone%></td>
-		<td><%= users[i].address%></td>
-		<td><%= users[i].email%></td>
-		<td>
-			<a class="btn btn-default btn-sm" href="/admin/user/update/<%=users[i]._id%>">修改</a>
-			<a class="btn btn-default btn-sm" href="/admin/user/delete/<%=users[i]._id%>">删除</a>
-		</td>
-	<tr>
-<% } %>
+		<% if (user.role == 0) { %>
+			<% for(var i = 0 ; i < users.length ; i++) { %>
+				<tr>
+					<td><%= users[i].username%></td>
+					<td><%= users[i].nickname%></td>
+					<td><%= users[i].phone%></td>
+					<td><%= users[i].address%></td>
+					<td><%= users[i].email%></td>
+					<td>
+						<a class="btn btn-primary btn-sm" href="/admin/user/update/<%=users[i]._id%>">修改</a>
+						<a class="btn btn-danger btn-sm" href="/admin/user/delete/<%=users[i]._id%>">删除</a>
+					</td>
+				<tr>
+			<% } %>
+		<% } else { 
+			for( var i = 0 ; i < users.length ; i++) 
+				if( users[i].nickname == user.nickname ) { %>
+					<tr>
+						<td><%= users[i].username%></td>
+						<td><%= users[i].nickname%></td>
+						<td><%= users[i].phone%></td>
+						<td><%= users[i].address%></td>
+						<td><%= users[i].email%></td>
+						<td>
+							<a class="btn btn-primary btn-sm" href="/admin/user/update/<%=users[i]._id%>">修改</a>
+						</td>
+					<tr>
+				<% } 
+		 } %>
 </table>
