@@ -33,7 +33,7 @@ router.get('/:postId', function(req, res) {
               if(error){
                   res.send("query comments failed!");
               }else{
-                  pageCount = post.commentsCount / Constant.ONE_PAGE_COMMENT_COUNT;
+                  pageCount = post.commentCount / Constant.ONE_PAGE_COMMENT_COUNT;
                   res.render('detail',{"post":post, "comments":comment, "pageNow":pageNow, "pageCount":pageCount });
               }
 
@@ -55,6 +55,7 @@ router.post('/comment', function(req, res) {
             result['avatarURL'] = utils.getAvatarURL(user.emailMd5, 80);
             result['user'] = user;
             result['count'] = count;
+            console.log('~~' + count);
             res.send(result);
         });
      }
