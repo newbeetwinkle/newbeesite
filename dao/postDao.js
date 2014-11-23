@@ -49,17 +49,20 @@ exports.findAllPost = function(callback){
     })
 };
 
-exports.findPostByContent = function(content,callback) {
+exports.findPostByContent = function(content, index, count, callback) {
     var pattern = new RegExp(content, "i");
     PostModel.find({
         "$or":[{title:pattern}, {content:pattern}],
         deleted : false
-    }).sort({createTime: -1}).find(function(e, doc){
-        if(e){
-            callback(e);
-        }else {
-            callback(null, doc);
-        }
+    })  .skip(index)
+        .limit(count)
+        .sort({createTime: -1})
+        .find(function(e, doc){
+            if(e){
+                callback(e);
+            }else {
+                callback(null, doc);
+            }
     });
 };
 

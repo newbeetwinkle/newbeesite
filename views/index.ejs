@@ -4,12 +4,13 @@
 	<head>		
         <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
         <script src="/js/jquery.scrollUp.min.js"></script>
+        <script src="/js/scrollpagination.js"></script>
     </head>
 	<body>
 		<h1>NEWBEE BLOG</h1>
 <div class="row">
 <div class="col-xs-8">
-<ul class="post_list">
+<ul class="post_list" id="scroll_block">
 <%for(var i = 0; i<posts.length;i++){ %>
 <li>
 <section class="well">
@@ -66,5 +67,27 @@
             zIndex: 2147483647           // Z-Index for the overlay
         });
     });
+
+    var pageNow = 2;
+
+    $(function(){
+
+        $('#scroll_block').scrollPagination({
+            'contentPage': '/', // the url you are fetching the results
+            'contentData': {'pageNow': 0}, // these are the variables you can pass to the request, for example: children().size() to know which page you are
+            'scrollTarget': $(window), // who gonna scroll? in this example, the full window
+            'heightOffset': 10, // it gonna request when scroll is 10 pixels before the page ends
+            'beforeLoad': function(opts){ // before load function, you can display a preloader div
+                opts.contentData = {'pageNow': pageNow++};
+            },
+            'afterLoad': function(elementsLoaded){ // after loading content, you can use this function to animate your new elements
+                if ($('#scroll_block').children().size() > 100){ // if more than 100 results already loaded, then stop pagination (only for testing)
+                    $('#scroll_block').stopScrollPagination();
+                }
+            }
+        });
+
+    });
+
 
 </script>

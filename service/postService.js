@@ -11,8 +11,8 @@ exports.queryAllPost = function(callback){
 	postDao.findAllPost(callback);
 };
 
-exports.queryPostByContent = function(searchPost, callback){
-    postDao.findPostByContent(searchPost, callback);
+exports.queryPostByContent = function(searchPost, index, count, callback){
+    postDao.findPostByContent(searchPost, index, count, callback);
 };
 
 
