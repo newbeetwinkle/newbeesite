@@ -23,14 +23,18 @@
 					<td><%= users[i].address%></td>
 					<td><%= users[i].email%></td>
 					<td>
-						<a class="btn btn-primary btn-sm" href="/admin/user/update/<%=users[i]._id%>">修改</a>
-						<a class="btn btn-danger btn-sm" href="/admin/user/delete/<%=users[i]._id%>">删除</a>
+						<% if( users[i].username == user.username ) { %>
+							<a class="btn btn-primary btn-sm" href="/admin/user/update?userId=<%=users[i]._id%>&type=password">修改密码</a>
+						<% } else {%>
+							<a class="btn btn-primary btn-sm" href="/admin/user/update?userId=<%=users[i]._id%>&type=normal">修改</a>
+							<a class="btn btn-danger btn-sm" href="/admin/user/delete/<%=users[i]._id%>">删除</a>
+						<% } %>												
 					</td>
 				<tr>
 			<% } %>
 		<% } else { 
 			for( var i = 0 ; i < users.length ; i++) 
-				if( users[i].nickname == user.nickname ) { %>
+				if( users[i].username == user.username ) { %>
 					<tr>
 						<td><%= users[i].username%></td>
 						<td><%= users[i].nickname%></td>

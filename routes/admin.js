@@ -121,31 +121,45 @@ router.get("/user/delete/:userId",function(req,res){
     })
 })
 
-router.get("/user/update/:userId",function(req,res){
-    var user = userService.findUserById(req.params.userId,function(e,user){
+router.get("/user/update",function(req,res){  
+    var user = userService.findUserById(req.query.userId,function(e,user){
       if (e) {
         res.render("error");
       }else{
-        res.render("modifyUser",{"user":user});
+        res.render("modifyUser",{"user":user,"type":req.query.type});
       }
     })
-
 })
 
-router.post("/user/update/:userId",function(req,res){
-    userService.findUserById(req.params.userId,function(e,user){
-        var username = req.body.username;
-        var nickname = req.body.nickname;
-        var email = req.body.email;
-        var role = ( req.body.role == "普通用户" ? 1 : 0 );
-        userService.updateUser(req.params.userId,username,nickname,email,role,function(e,status){
-          if (e) {
-            res.render("error");
-          }else{
-            req.flash("success","Update user success!");
-            res.redirect("/admin/user");
+router.post("/user/update",function(req,res){
+    var type = req.query.type;
+    userService.findUserPwdByUserId(req.query.userId,function(err,password){
+        if (type == 'normal') {
+          userService.findUserById(req.query.userId,function(e,user){
+              var username = req.body.username;
+              var nickname = req.body.nickname;
+              var email = req.body.email;
+              var role = ( req.body.role == "普通用户" ? 1 : 0 );
+              userService.updateUser(req.query.userId,username,nickname,email,role,function(e,status){
+                if (e) {
+                  res.render("error");
+                }else{
+                  req.flash("success","Update user success!");
+                  res.redirect("/admin/user");
+                }
+              });
+          });    
+        } else {
+          if (req.body['confirmPassword'] != req.body['password']) {
+            req.flash('error','两次输入的密码不一致！');
+            res.redirect('/users/update?userId='+req.query.userId+"&type="+req.query.type);
+          } else if ( password != req.body.password) {
+            req.flash("error","密码不正确");
+            res.redirect('/users/update?userId='+req.query.userId+"&type="+req.query.type);
+          } else {
+            userService.update
           }
-        });
+        }   
     });    
 })
 

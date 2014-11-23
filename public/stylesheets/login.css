@@ -1,18 +1,47 @@
 body{
-	font-size:12px;
 	font-family: "Open Sans",Arial,"Hiragino Sans GB","Microsoft YaHei","微软雅黑","STHeiti","WenQuanYi Micro Hei",SimSun,sans-serif;
 }
 #loginBlock{
-	width: 300px;
+	width: 302px;
+	margin-top: 100px;
 	margin-left: auto;
 	margin-right: auto;
+	border: 1px solid #DDD;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 9px;
+	background: #DDD;
 }
 #register font{
-	font-size: 15px;
+	font-size: 12px;
 }
-#register a{
+#login-btn{
+	width: 80px;
+}
+#a_footer{
+	text-align: right;
+	color: #666;
+	font-size: 11px;
+}
+input[type=textbox],input[type=password]{
+	width:300px;
+}
+table{
+	width: 100%;
+}
+td{
+	padding-top: 5px;
+	padding-bottom: 5px
+}
+a{
+	color:#666;
 	text-decoration: none;
 }
-#register a:hover{
+a:visited{
 	color:#666;
+	text-decoration: none;
+}
+a:hover{
+	color:#000;
+	text-decoration: none;
 }

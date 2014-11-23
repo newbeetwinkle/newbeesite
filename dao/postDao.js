@@ -10,7 +10,8 @@ var _Post = new Schema({
     author : { type: Schema.Types.ObjectId, ref: 'User' },
     category : { type: Schema.Types.ObjectId, ref: 'Category' },
     content : String,
-    viewCount : Number,
+    viewCount : { type: Number, default: 0 },
+    commentCount :  { type: Number, default: 0 },
     postId : Number,
     createTime : { type: Date, default: Date.now },
     modifyTime : { type: Date, default: Date.now },
@@ -123,3 +124,39 @@ exports.modifyPost = function(postObject,callback){
             }
         });
 }
+
+/* get comments count of one post */
+exports.getCommentsCount = function(postId, callback){
+    PostModel.find({postId: postId}, {commentCount : 1})
+        .find(function(e, doc){
+            if(e){
+                callback(e);
+            } else {
+                callback(null,doc);
+            }
+        })
+}
+
+exports.incCommentCount = function(postId, callback){
+    PostModel.update({postId : postId, deleted : false}, {$inc : {commentCount : 1}}, function(e, doc){
+        if(e){
+            callback(e);
+        } else {
+            callback(null,doc);
+        }
+    })
+}
+
+exports.findHotPostList = function(callback){
+    PostModel.find({deleted : false})
+        .populate('author')
+        .sort({commentCount: -1, viewCount: -1})
+        .limit(5)
+        .find(function(e, doc){
+            if(e){
+                callback(e);
+            } else {
+                callback(null,doc);
+            }
+        })
+};

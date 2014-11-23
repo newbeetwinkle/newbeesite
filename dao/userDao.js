@@ -15,7 +15,8 @@ var _User = new Schema({
     userIP : String,
     lastLoginTime : { type: Date, default: Date.now },
     role : { type : Number , default : 1},  // 0-管理员；1-普通用户
-    deleted : { type: Boolean , default : false }  // false未删除，true已删除
+    deleted : { type: Boolean , default : false },  // false未删除，true已删除
+    isVerify : {type : Boolean , default : false } //false means not while true means yes
 });
 
 var UserModel = mongoose.model('User', _User);
@@ -50,7 +51,7 @@ exports.findAllUser = function(callback){
 };
 
 exports.userLogin = function(username,password,callback){
-	UserModel.findOne({"username": username , "password": password}, {"username" : 1, "nickname" : 1, "_id" : 1, "emailMd5" : 1 , "role" : 1} , function(err , docs){
+	UserModel.findOne({"username": username , "password": password , "isVerify" : true}, {"username" : 1, "nickname" : 1, "_id" : 1, "emailMd5" : 1 , "role" : 1} , function(err , docs){
 		if (docs) {
 			callback(err,docs);
 		} else {
@@ -108,3 +109,49 @@ exports.allUser = function(callback){
 		}
 	});
 };
+
+exports.verifyUser = function(username,callback){
+	UserModel.update({"username":username},{"isVerify" : true},function(err,user){
+		if (err) {
+			callback(err);
+		}else{
+			callback(null,user);
+		}
+	});
+};
+
+exports.checkUser = function(username,email,callback){
+	UserModel.findOne({"username":username,"email":email},function(err,status){
+		if (err) {
+			callback(err);
+		}else if (status) {
+			callback(null,true);
+		}else{
+			callback(null,false);
+		}
+	})
+};
+
+exports.findPwd = function(username,callback){
+	UserModel.update({"username":username},{"password":"newbee"},function(err,status){
+		if (err) {
+			callback(err);
+		}else{
+			callback(null,true);
+		}
+	});
+};
+
+exports.findUserPwdByUserId = function(userId,callback){
+	UserModel.find({"_id":userId},{"password":1},function(err,password){
+		if (err) {
+			callback(err);
+		} else {
+			callback(null,password);
+		}
+	})
+};
+
+exports.updatePasswordByUserId = function(userId,callback){
+	// UserModel.update({"userp"})
+}
