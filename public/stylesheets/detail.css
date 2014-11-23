@@ -10,6 +10,12 @@
     margin-top: 13px;
 }
 
+.post_category{
+    float: left;
+    margin-left: 10px;
+    margin-top: 13px;
+}
+
 .post_author_avatar{
     float: left;
     margin-left: 15px;

@@ -17,6 +17,7 @@
 <div class="pre_post_info">
     <span class="post_author">作者：<%=post.author.nickname%></span>
     <img class="post_author_avatar avatar_small shadow" src=<%=getAvatarURL(post.author.emailMd5, 30)%>>
+    <span class="post_category">分类：<%=post.category.categoryName%></span>
     <label type="button" class="post_view_count label label-primary">浏览数：<%=post.viewCount%></label>
 </div>
 

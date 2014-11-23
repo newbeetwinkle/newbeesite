@@ -2,8 +2,21 @@ var express = require('express');
 var router = express.Router();
 var adminService = require('../service/adminService');
 var postService = require('../service/postService');
+var userService = require("../service/userService");
+var categoryService = require('../service/categoryService');
 var util = require('../utils');
 var path = require('path');
+
+//locals is used to change the view dynamic
+router.use(function(req,res,next){
+ res.locals.user = req.session.user;
+ var err = req.flash("error");
+ res.locals.error =  err.length ? err : null ;
+ var success = req.flash("success");
+ res.locals.success = success.length ? success : null ;
+  next();
+});
+
 
 router.all("/ueditor", util.ueditor('public', function(req, res, next) {
   // ueditor 客户发起上传图片请求
@@ -43,13 +56,20 @@ router.get('/', function(req, res) {
 });
 
 router.get('/post',function(req, res) {
-	res.render('editpost',{"act":"new"});
+    categoryService.queryAllCategory(function(err,categorys){
+        if(err){
+            res.send(err);
+        }else {
+           res.render('editpost',{"categorys": categorys, "act":"new"});
+        }
+  });
 });
 
 router.post('/post',function(req, res) {
     var post = {
         title: req.body.title,
         content : req.body.content,
+        category : req.body.category,
         author: req.session.user._id,
         postId: req.body.postId
     }
@@ -62,6 +82,23 @@ router.post('/post',function(req, res) {
     });
 });
 
+router.get('/category', function(req, res){
+  categoryService.queryAllCategory(function(err,categorys){
+    if(err){
+      res.send(err);
+    }else {
+      res.render('categoryManager', {"categorys":categorys});
+    }
+  });
+});
+
+router.post('/addCategory', function(req, res){
+  categoryService.addCategory(req.body.categoryName, function(err){
+      var result={"err":err};
+      res.send(result);
+  })
+});
+
 router.get('/user',function(req,res){
 	adminService.showUsers(function(err,users){
 		if (users) {			
@@ -71,6 +108,59 @@ router.get('/user',function(req,res){
 			res.redirect("/admin");
 		}
 	});
+});
+
+router.get("/user/delete/:userId",function(req,res){
+    userService.deleteUser(req.params.userId,function(err,status){
+      if (err) {
+        res.render("error");
+      }else{
+        req.flash("success","Delete user success!");
+        res.redirect("/admin/user");
+      }
+    })
+})
+
+router.get("/user/update",function(req,res){  
+    var user = userService.findUserById(req.query.userId,function(e,user){
+      if (e) {
+        res.render("error");
+      }else{
+        res.render("modifyUser",{"user":user,"type":req.query.type});
+      }
+    })
+})
+
+router.post("/user/update",function(req,res){
+    var type = req.query.type;
+    userService.findUserPwdByUserId(req.query.userId,function(err,password){
+        if (type == 'normal') {
+          userService.findUserById(req.query.userId,function(e,user){
+              var username = req.body.username;
+              var nickname = req.body.nickname;
+              var email = req.body.email;
+              var role = ( req.body.role == "普通用户" ? 1 : 0 );
+              userService.updateUser(req.query.userId,username,nickname,email,role,function(e,status){
+                if (e) {
+                  res.render("error");
+                }else{
+                  req.flash("success","Update user success!");
+                  res.redirect("/admin/user");
+                }
+              });
+          });    
+        } else {
+          if (req.body['confirmPassword'] != req.body['password']) {
+            req.flash('error','两次输入的密码不一致！');
+            res.redirect('/users/update?userId='+req.query.userId+"&type="+req.query.type);
+          } else if ( password != req.body.password) {
+            req.flash("error","密码不正确");
+            res.redirect('/users/update?userId='+req.query.userId+"&type="+req.query.type);
+          } else {
+            userService.update
+          }
+        }   
+    });    
 })
 
 /* My post page */
@@ -90,10 +180,28 @@ router.get('/myposts/:postId',function(req,res){
         if(err){
             res.send(err);
         } else {
-            res.render("editpost",{"post":doc, "act":"modify"});
+            categoryService.queryAllCategory(function(e,categorys){
+                  if(e){
+                    res.send(e);
+                  }else {
+                    console.info(doc.category);
+                    res.render('editpost', {"post":doc, "act":"modify","categorys":categorys});
+                  }
+            });
         }
     });
 })
+
+router.get('/allposts', function(req, res){
+    postService.queryAllPost(function(err, doc){
+         if(err){
+             res.send(err);
+         } else {
+             res.render("myposts",{"posts":doc});
+         }
+     });
+});
+
 
 /* delete post */
 router.delete('/post/:postId', function(req, res){

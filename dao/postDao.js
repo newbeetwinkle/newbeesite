@@ -8,7 +8,7 @@ require('./db');
 var _Post = new Schema({
     title : String,
     author : { type: Schema.Types.ObjectId, ref: 'User' },
-    category : Schema.Types.ObjectId,
+    category : { type: Schema.Types.ObjectId, ref: 'Category' },
     content : String,
     viewCount : { type: Number, default: 0 },
     commentCount :  { type: Number, default: 0 },
@@ -29,6 +29,7 @@ exports.findOnePost = function(postId,callback){
 
     // query, update, options
     PostModel.findOneAndUpdate({postId : postId, deleted : false}, {$inc : {viewCount : 1}}, {new : true})
+        .populate('category')
         .populate('author')
         .exec(function (err, data) {
             if(err) {
@@ -40,7 +41,11 @@ exports.findOnePost = function(postId,callback){
 };
 
 exports.findAllPost = function(callback){
-    PostModel.find({deleted : false}).sort({createTime: -1}).find(function(e, doc){
+    PostModel.find({deleted : false})
+    .populate('author')
+    .populate('category')
+    .sort({createTime: -1}).
+    find(function(e, doc){
         if(e){
             callback(e);
         } else {
@@ -54,7 +59,10 @@ exports.findPostByContent = function(content, index, count, callback) {
     PostModel.find({
         "$or":[{title:pattern}, {content:pattern}],
         deleted : false
-    })  .skip(index)
+    })
+        .populate('category')
+        .populate('author')
+        .skip(index)
         .limit(count)
         .sort({createTime: -1})
         .find(function(e, doc){
@@ -83,6 +91,7 @@ exports.findUserPost = function(user_id, callback){
 exports.addPost = function(postObject,callback){
         var post = new PostModel({
             title : postObject.title,
+            category : postObject.category,
             content : postObject.content,
             author : postObject.author
         });
@@ -108,7 +117,7 @@ exports.deletePost = function(postId,callback){
 /* modify one post */
 exports.modifyPost = function(postObject,callback){
     PostModel.findOneAndUpdate({postId : postObject.postId},
-        {$set : {title : postObject.title, content : postObject.content, modifyTime : Date.now()}},
+        {$set : {title : postObject.title, content : postObject.content,category:postObject.category, modifyTime : Date.now()}},
         {new : true},
         function (err, data) {
             if(err) {

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<% layout('adminlayout') %>
+<head>
+       <style type="text/css">
+
+       </style>
+</head>
+<table class="table table-bordered table-hover">
+	<tr>　　　
+		<th>用户名</th>
+		<th>昵称</th>
+		<th>手机号</th>
+		<th>地址</th>
+		<th>电子邮箱</th>
+		<th>密码</th>
+		<th>注册时间</th>
+		<th>ＩＰ</th>
+		<!-- <th>上次登录时间</th> -->
+		<th>角色</th>
+		<th>删除状态</th>
+		<th>验证状态</th>
+	</tr>		　
+		<% for(var i = 0 ; i < users.length ; i++) { %>
+			<tr>
+				<td><%= users[i].username%></td>
+				<td><%= users[i].nickname%></td>
+				<td><%= users[i].phone%></td>
+				<td><%= users[i].address%></td>
+				<td><%= users[i].email%></td>
+				<td><%= users[i].password%></td>
+				<td><%= users[i].registerTime%></td>
+				<td><%= users[i].userIP%></td>
+				<!-- <td><%= users[i].lastLoginTime%></td> -->
+				<td><% if ( users[i].role == 0) { %> 管理员 <% } else { %> 普通用户 <% } %></td>
+				<td><% if ( users[i].deleted ) { %> 是 <% } else { %> 否 <% } %></td>
+				<td><% if ( users[i].isVerify ) { %> 是 <% } else { %> 否 <% } %></td>
+			<tr>
+		<% } %>	
+</table>

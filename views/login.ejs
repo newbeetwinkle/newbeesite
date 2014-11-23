@@ -8,33 +8,26 @@
 <body>
 <form method="post"  class="form-signin" role="form">
 	<div id="loginBlock" >
-	<h2 class="form-signin-heading">欢迎登录</h2>
-	<table >
+	<h5 class="form-signin-heading" style="text-align:left">帐号登录</h5>
+	<table>
 	<tr>
-		<td>用户名：</td>
 		<td>
 		<input class="form-control" type="textbox" id="username"  required autofocus name="username" placeholder="Username/Email"/></td> 
 	</tr>	
 	<tr>
-		<td>密码：</td>
 		<td><input class="form-control" type="password" id="password" placeholder="Password" required name="password" /></td>
-	</tr>	
+	</tr>		
 	<tr>
-		<td colspan="2">
-		<input type="checkbox" >阅读用户协议
-		</td>
+		<td><input type="submit" class="btn btn-primary btn-md" id="login-btn" value="登录"  name="login-btn"/> </td>
+		
 	</tr>
 	<tr>
-		<td colspan="2"><input type="submit" class="btn btn-primary btn-md btn-block" id="login-btn" value="登录"  name="login-btn"/> </td>
-	</tr>
-	<!-- 
-	<tr>
-		<td colspan="2"><input type="reset"  class="btn btn-danger btn-lg"  id="reset-btn" value="重置" name="reset-btn" /></td>
-	</tr>
-	-->
-	<tr>
-		<td colspan="2" id="register">
-			<a href="/users/register"><font>没有帐号？赶紧注册</font></a>
+		<td colspan="2" id="a_footer">
+			<a href="/users/register">注册</a>
+			<font> | </font>
+			<a href="/users/fogetpwd">忘记密码</a>
+			<font> | </font>
+			<a href="#">意见反馈</a>
 		</td>
 	</tr>
 	

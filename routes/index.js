@@ -71,4 +71,8 @@ function makePostUnit(post){
         + post.commentCount + '</span></div></section></li>';
 }
 
+router.get('/aboutus', function(req, res) {
+	res.render('aboutus',{"user":req.session.user});
+});
+
 module.exports = router;

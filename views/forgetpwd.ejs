@@ -1,0 +1,29 @@
+<!Doctype html>
+<% layout('boilerplate') -%>
+<html>
+<head>
+<title>register page</title>
+<link rel='stylesheet' href='/stylesheets/login.css' />
+</head>
+<body>
+<form method="post"  class="form-signin" role="form">
+	<div id="loginBlock" >
+	<h5 class="form-signin-heading" style="text-align:left">输入用户名和邮箱</h5>
+	<table>
+	<tr>
+		<td>
+		<input class="form-control" type="textbox" id="username"  required autofocus name="username" placeholder="username"/></td> 
+	</tr>
+	<tr>
+		<td>
+		<input class="form-control" type="textbox" id="email"  required autofocus name="email" placeholder="Email"/></td> 
+	</tr>		
+	<tr>
+		<td><input type="submit" class="btn btn-primary btn-md" id="login-btn" value="找回密码"  name="login-btn"/> </td>		
+	</tr>	
+</table>
+</div>
+</form>
+</body>
+
+</html>

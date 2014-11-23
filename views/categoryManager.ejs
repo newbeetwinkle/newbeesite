@@ -1,0 +1,16 @@
+<% layout('adminlayout') -%>
+
+<h1>
+        分类管理
+</h1>
+
+<ul class="list-group" id="categoryList">
+	<%for(var i = 0; i<categorys.length;i++){ %>
+	<li class="list-group-item"><%=categorys[i].categoryName %></li>
+	<% } %>
+</ul>
+
+<div>
+	<input type="text" class="form-control" placeholder="newCategoryName" id="categoryName">
+	<button type="button" class="btn btn-primary" onclick="addCategory()">Add</button>
+</div>

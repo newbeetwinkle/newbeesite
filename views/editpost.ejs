@@ -1,5 +1,4 @@
 <% layout('adminlayout') -%>
-
 <h1>
     <%if(act == "new"){%>
         发布文章
@@ -15,12 +14,24 @@
     <%if(act == "modify"){%>
         <input type="input" id="postId" name="postId" hidden="hidden"  value="<%=post.postId%>" >
     <%}%>
-    <div class="form-group">
+       <div class="form-group">
 		<label for="title" class="col-sm-1 control-label">Title</label>
 		<div class="col-sm-8">
 			<input type="input" class="form-control" id="title" name="title" required <%if(act == "modify"){%> value="<%=post.title%>" <%}%> >
 		</div>
 	</div>
+    <div>
+    </div>
+        <div class="form-group">
+        <label for="title" class="col-sm-1 control-label">category</label>
+            <div class="col-sm-8">
+                <select name="category" class="form-control">
+                    <%for(var i = 0; i<categorys.length;i++){ %>
+                        <option value="<%= categorys[i]._id %>" <%if(act == "modify" && categorys[i]._id.toString()==post.category){%> selected="selected" <%}%> ><%=categorys[i].categoryName%></option>
+                    <%}%>
+                </select>
+            </div>
+        </div>
 	<!-- 加载编辑器的容器 -->
 	<script id="editor" name="content" type="text/plain">
 	</script>
