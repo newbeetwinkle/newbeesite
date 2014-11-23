@@ -68,6 +68,15 @@ body {
     height: 20px;
 }
 
+.hotLable{
+    font-size: 28px;
+}
+
+.hotTitle{
+    padding-left: 30px;
+    font-size: 20px;
+}
+
 footer {
 	font-size: 15px;
 	width:100%;

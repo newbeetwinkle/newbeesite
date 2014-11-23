@@ -137,3 +137,17 @@ exports.incCommentCount = function(postId, callback){
         }
     })
 }
+
+exports.findHotPostList = function(callback){
+    PostModel.find({deleted : false})
+        .populate('author')
+        .sort({commentCount: -1, viewCount: -1})
+        .limit(5)
+        .find(function(e, doc){
+            if(e){
+                callback(e);
+            } else {
+                callback(null,doc);
+            }
+        })
+};

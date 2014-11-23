@@ -41,3 +41,7 @@ exports.saveComment = function(postId, postContent, user, callback){
 exports.queryComments = function(postId, index, count, callback){
     commentDao.findComments(postId, index, count, callback);
 }
+
+exports.queryHotPostList = function(callback){
+    postDao.findHotPostList(callback)
+}
