@@ -3,6 +3,7 @@ var router = express.Router();
 var adminService = require('../service/adminService');
 var postService = require('../service/postService');
 var userService = require("../service/userService");
+var categoryService = require('../service/categoryService');
 var util = require('../utils');
 var path = require('path');
 
@@ -55,13 +56,20 @@ router.get('/', function(req, res) {
 });
 
 router.get('/post',function(req, res) {
-	res.render('editpost',{"act":"new"});
+    categoryService.queryAllCategory(function(err,categorys){
+        if(err){
+            res.send(err);
+        }else {
+           res.render('editpost',{"categorys": categorys, "act":"new"});
+        }
+  });
 });
 
 router.post('/post',function(req, res) {
     var post = {
         title: req.body.title,
         content : req.body.content,
+        category : req.body.category,
         author: req.session.user._id,
         postId: req.body.postId
     }
@@ -72,6 +80,23 @@ router.post('/post',function(req, res) {
             res.send(err);
         }
     });
+});
+
+router.get('/category', function(req, res){
+  categoryService.queryAllCategory(function(err,categorys){
+    if(err){
+      res.send(err);
+    }else {
+      res.render('categoryManager', {"categorys":categorys});
+    }
+  });
+});
+
+router.post('/addCategory', function(req, res){
+  categoryService.addCategory(req.body.categoryName, function(err){
+      var result={"err":err};
+      res.send(result);
+  })
 });
 
 router.get('/user',function(req,res){
@@ -141,10 +166,28 @@ router.get('/myposts/:postId',function(req,res){
         if(err){
             res.send(err);
         } else {
-            res.render("editpost",{"post":doc, "act":"modify"});
+            categoryService.queryAllCategory(function(e,categorys){
+                  if(e){
+                    res.send(e);
+                  }else {
+                    console.info(doc.category);
+                    res.render('editpost', {"post":doc, "act":"modify","categorys":categorys});
+                  }
+            });
         }
     });
 })
+
+router.get('/allposts', function(req, res){
+    postService.queryAllPost(function(err, doc){
+         if(err){
+             res.send(err);
+         } else {
+             res.render("myposts",{"posts":doc});
+         }
+     });
+});
+
 
 /* delete post */
 router.delete('/post/:postId', function(req, res){

@@ -53,3 +53,18 @@ $('#editpostform').submit(function () {
 
 widthFunctions();
 
+function addCategory(){
+	var name = $('#categoryName').val();
+	$.ajax({
+            url: '/admin/addCategory/',
+            data:{"categoryName": name},
+            type: 'POST',
+            success: function(result) {
+                if(!result.err){
+                	var li = $('<li class="list-group-item">' + name + '</li>');
+                	$('#categoryList').append(li);
+                	$('#categoryName').val('');
+                }
+            }
+        });
+}

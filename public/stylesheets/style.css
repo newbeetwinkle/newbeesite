@@ -137,3 +137,10 @@ footer a:hover {
 #scrollUp:hover {
     margin-bottom: 0;
 }
+
+.abt_sec{
+    margin-top: 10px;
+    font-family: "Open Sans",Arial,"Hiragino Sans GB","Microsoft YaHei","微软雅黑","STHeiti","WenQuanYi Micro Hei",SimSun,sans-serif;
+    font-size: 20px;
+    color: #21759b;
+}
