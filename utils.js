@@ -18,7 +18,7 @@ exports.date2Timestamp = function(date){
 };
 
 exports.dateFormat = function (date) {
-    return moment(date).format('YYYY年MM月DD日 hh:mm:ss');
+    return moment(date).format('YYYY年MM月DD日 hh:mm:ss').toString();
 }
 
 /**

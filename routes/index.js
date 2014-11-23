@@ -65,7 +65,7 @@ function makePostUnit(post){
     return '<li><section class="well"><a href="/posts/'
         + post.postId + '"><span class="post_title">'
         + post.title + '</span></a>' + '<div class="post_summary">'
-        + post.content +'</div><div><span class="post_time">发布于' +
+        + post.content +'</div><div><span class="post_time">发布于 '
         + util.dateFormat(post.createTime) + '</span><span class="post_view_count_main">浏览：'
         + post.viewCount + '&nbsp;&nbsp;&nbsp;&nbsp;回复：'
         + post.commentCount + '</span></div></section></li>';
