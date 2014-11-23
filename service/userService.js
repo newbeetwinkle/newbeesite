@@ -38,3 +38,23 @@ exports.updateUser = function(userId,username,nickname,email,role,callback){
 exports.allUser = function(callback){
 	userDao.allUser(callback);
 };
+
+exports.verifyUser = function(username,callback){
+	userDao.verifyUser(username,callback);
+};
+
+exports.checkUser = function(username,email,callback){
+	userDao.checkUser(username,email,callback);
+};
+
+exports.findPwd = function(username,callback){
+	userDao.findPwd(username,callback);
+};
+
+exports.findUserPwdByUserId = function(userId,callback){
+	userDao.findUserPwdByUserId(userId,callback);
+};
+
+exports.updatePasswordByUserId = function(userId,callback){
+	userDao.updatePasswordByUserId(userId,callback);
+};
