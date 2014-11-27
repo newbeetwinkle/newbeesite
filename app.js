@@ -19,6 +19,7 @@ var admin = require('./routes/admin');
 
 
 require('./dao/db');
+require('./schedule');
 
 var app = express();
 
