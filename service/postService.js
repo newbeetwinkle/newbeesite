@@ -45,3 +45,8 @@ exports.queryComments = function(postId, index, count, callback){
 exports.queryHotPostList = function(callback){
     postDao.findHotPostList(callback)
 }
+
+/* schedule run */
+exports.updateHotScore = function(callback){
+    postDao.updateHotScore(callback)
+}

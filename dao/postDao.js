@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var Utils = require('../utils.js');
+var utils = require('../utils.js');
 var Schema = mongoose.Schema;
 var autoIncrement = require('mongoose-auto-increment');
 require('./db');
@@ -12,6 +12,7 @@ var _Post = new Schema({
     content : String,
     viewCount : { type: Number, default: 0 },
     commentCount :  { type: Number, default: 0 },
+    hotScore :  { type: Number, default: 0 },
     postId : Number,
     createTime : { type: Date, default: Date.now },
     modifyTime : { type: Date, default: Date.now },
@@ -163,3 +164,20 @@ exports.findHotPostList = function(callback){
             }
         })
 };
+
+exports.updateHotScore = function(callback){
+    this.findAllPost(function(err, posts){
+        if(err){
+            callback(err);
+        } else {
+            console.log(posts);
+            posts.forEach(function(post){
+                var score = utils.getHotScore(post.createTime, post.viewCount, post.commentCount);
+                console.log("post: " + post.title + " score " + score);
+                PostModel.update({postId : post.postId, deleted : false}, {$set : {hotScore : score}}, function(err){
+                     console.log(err);
+                });
+            });
+        }
+    });
+}
