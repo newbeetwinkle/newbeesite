@@ -154,7 +154,7 @@ exports.incCommentCount = function(postId, callback){
 exports.findHotPostList = function(callback){
     PostModel.find({deleted : false})
         .populate('author')
-        .sort({commentCount: -1, viewCount: -1})
+        .sort({hotScore: -1})
         .limit(5)
         .find(function(e, doc){
             if(e){
