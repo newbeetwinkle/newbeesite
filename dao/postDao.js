@@ -170,12 +170,10 @@ exports.updateHotScore = function(callback){
         if(err){
             callback(err);
         } else {
-            console.log(posts);
             posts.forEach(function(post){
                 var score = utils.getHotScore(post.createTime, post.viewCount, post.commentCount);
                 console.log("post: " + post.title + " score " + score);
                 PostModel.update({postId : post.postId, deleted : false}, {$set : {hotScore : score}}, function(err){
-                     console.log(err);
                 });
             });
         }

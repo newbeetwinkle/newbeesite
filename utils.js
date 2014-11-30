@@ -148,5 +148,5 @@ exports.getAvatarURL = function(md5, size) {
 exports.getHotScore = function(createTime, view, comment){
     var ts =  this.date2Timestamp(createTime) - 548676488;
     var c = view * 2 + comment * 8;
-    return c + ts/45000;
+    return Math.log(c/Math.LN10) + ts/45000;
 }
