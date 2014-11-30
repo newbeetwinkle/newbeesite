@@ -1,0 +1,29 @@
+<!Doctype html>
+<% layout('boilerplate') -%>
+<html>
+<head>
+<title>reset pwd</title>
+<link rel='stylesheet' href='/stylesheets/login.css' />
+</head>
+<body>
+<form method="post"  class="form-signin" role="form">
+	<div id="loginBlock" >
+	<h5 class="form-signin-heading" style="text-align:left">Enter Your Pwd To Find </h5>
+	<table>
+	<tr>
+		<td>
+		<input class="form-control" type="textbox" id="pwd"  required autofocus name="pwd" placeholder="new pwd"/></td> 
+	</tr>
+	<tr>
+		<td>
+		<input class="form-control" type="textbox" id="confirmPwd"  required autofocus name="confirmPwd" placeholder="confirm pwd"/></td> 
+	</tr>			
+	<tr>
+		<td><input type="submit" class="btn btn-primary btn-md" id="login-btn" value="Reset Password"  name="login-btn"/> </td>		
+	</tr>	
+</table>
+</div>
+</form>
+</body>
+
+</html>

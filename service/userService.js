@@ -58,3 +58,8 @@ exports.findUserPwdByUserId = function(userId,callback){
 exports.updatePasswordByUserId = function(userId,callback){
 	userDao.updatePasswordByUserId(userId,callback);
 };
+
+exports.updatePasswordByUserName = function(username,password,callback){
+	userDao.updatePasswordByUserName(username,password,callback);
+};
+
