@@ -75,7 +75,7 @@ router.post('/register', function(req, res) {
 	} else {
  		 userService.addUser(
  		 	req.body.username,
- 		 	req.body.password,
+ 		 	util.md5(req.body.password),
  		 	req.body.nickname,
  		 	req.body.telephone,
  		 	req.body.addr,
@@ -128,16 +128,36 @@ router.get('/verify/:username',function(req,res){
 
 //find password
 router.get('/findPwd/:username',function(req,res){
-	userService.findPwd(req.params.username,function(err,user){
-		if (err) {
-			res.render("error");
-		}else{
-			req.flash("success","Your password has been changed to: newbee,please remenber it!");
-			res.redirect("/users/login");
-		}
-	});
+	res.render("resetPwd");
+	// userService.findPwd(req.params.username,function(err,user){
+	// 	if (err) {
+	// 		res.render("error");
+	// 	}else{
+	// 		req.flash("success","Your password has been changed to: newbee,please remenber it!");
+	// 		res.redirect("/users/login");
+	// 	}
+	// });
 });
 
+router.post('/findPwd/:username',function(req,res){
+	if (req.body['pwd'] != req.body['confirmPwd']) {
+		req.flash('error','两次输入的密码不一致！');
+		res.redirect('/users/findPwd/'+req.params.username);
+	} else {
+		userService.updatePasswordByUserName(req.params.username,req.body.pwd,function(err,status){
+			if (err) {
+				req.flash("error","Update pwd failed , Please try again!");
+				res.render("error");
+			} else if (status) {
+				req.flash("success","Your password has been modified!");
+				res.redirect("/users/login");
+			} else {
+				req.flash('error','Sorry , Please try anain');
+				res.redirect('/users/findPwd/'+req.params.username);
+			}
+		})
+	}
+});
 //use locals to dynamic change content of module engine
 router.use(function(req,res,next){
 	res.locals.user = req.session.user;

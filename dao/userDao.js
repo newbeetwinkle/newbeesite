@@ -51,7 +51,7 @@ exports.findAllUser = function(callback){
 };
 
 exports.userLogin = function(username,password,callback){
-	UserModel.findOne({"username": username , "password": password , "isVerify" : true}, {"username" : 1, "nickname" : 1, "_id" : 1, "emailMd5" : 1 , "role" : 1} , function(err , docs){
+	UserModel.findOne({"username": username , "password": util.md5(password) , "isVerify" : true}, {"username" : 1, "nickname" : 1, "_id" : 1, "emailMd5" : 1 , "role" : 1} , function(err , docs){
 		if (docs) {
 			callback(err,docs);
 		} else {
@@ -152,6 +152,23 @@ exports.findUserPwdByUserId = function(userId,callback){
 	})
 };
 
-exports.updatePasswordByUserId = function(userId,callback){
-	// UserModel.update({"userp"})
-}
+exports.updatePasswordByUserId = function(userId,password,callback){
+	UserModel.update({"_id":userId},{"password":password},function(err,status){
+		if (err) {
+			callback(err);
+		} else {
+			callback(null,true);
+		}
+	});
+};
+
+exports.updatePasswordByUserName = function(username,password,callback){
+	console.info("username:"+username+"password:"+password);
+	UserModel.update({"username":username},{"password":password},function(err,status){
+		if (err) {
+			callback(err);
+		} else {
+			callback(null,true);
+		}
+	});
+};
