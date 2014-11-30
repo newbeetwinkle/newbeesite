@@ -144,3 +144,9 @@ var respond = function(static_url, callback) {
 exports.getAvatarURL = function(md5, size) {
     return "http://gravatar.com/avatar/" + md5 + "?s=" + size;
 }
+
+exports.getHotScore = function(createTime, view, comment){
+    var ts =  this.date2Timestamp(createTime) - 548676488;
+    var c = view * 2 + comment * 8;
+    return Math.log(c/Math.LN10) + ts/45000;
+}
