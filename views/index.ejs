@@ -1,51 +1,59 @@
 <!DOCTYPE html >
 <% layout('boilerplate') %>
 <html>
-	<head>		
-        <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
-        <script src="/js/jquery.scrollUp.min.js"></script>
-        <script src="/js/scrollpagination.js"></script>
-    </head>
-	<body>
-		<h1>NEWBEE BLOG</h1>
+<head>
+    <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+    <script src="/js/jquery.scrollUp.min.js"></script>
+    <script src="/js/scrollpagination.js"></script>
+</head>
+<body>
+<h1>NEWBEE BLOG</h1>
 <div class="row">
-<div class="col-xs-8">
-<ul class="post_list" id="scroll_block">
-<%for(var i = 0; i<posts.length;i++){ %>
-<li>
-<section class="well">
-    <a href="/posts/<%=posts[i].postId%>">
-        <span class="post_title"><%=posts[i].title %></span>
-    </a>
-    <div class="post_summary"><%=posts[i].content %></div>
-    <div>
-        <span class="post_category"><%=posts[i].category.categoryName%></span>
-        <span class="post_time">发布于 <%=dateFormat(posts[i].createTime) %></span>
-        <span class="post_view_count_main">浏览：<%=posts[i].viewCount %>&nbsp;&nbsp;&nbsp;&nbsp;回复：<%=posts[i].commentCount %></span>
+    <div class="col-xs-8">
+        <ul class="post_list" id="scroll_block">
+            <%for(var i = 0; i<posts.length;i++){ %>
+            <li>
+                <section class="well">
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                <a href="/posts/<%=posts[i].postId%>">
+                                    <span class="post_title"><%=posts[i].title %></span>
+                                </a>
+                            </td>
+                            <td>
+                                <span class="post_category">分类：<%=posts[i].category.categoryName%></span>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="post_summary"><%=posts[i].content %></div>
+                    <div>
+                        <span class="post_time">发布于 <%=dateFormat(posts[i].createTime) %></span>
+                        <span class="post_view_count_main">浏览：<%=posts[i].viewCount %>&nbsp;&nbsp;&nbsp;&nbsp;回复：<%=posts[i].commentCount %></span>
+                    </div>
+                </section>
+            </li>
+            <%
+            }
+            %>
+        </ul>
     </div>
-</section>
-</li>
-<%
-}
-%>
-</ul>
-</div>
-<div class="col-xs-4">
-    <%if(hotPosts){%>
+    <div class="col-xs-4">
+        <%if(hotPosts){%>
         <san class="hotLable">热门文章</san>
         <ul class="post_list">
             <%for(var i = 0; i<hotPosts.length;i++){ %>
-                <li>
-                    <a href="/posts/<%=hotPosts[i].postId%>">
-                        <span class="hotTitle"><%=hotPosts[i].title %></span>
-                    </a>
-                </li>
+            <li>
+                <a href="/posts/<%=hotPosts[i].postId%>">
+                    <span class="hotTitle"><%=hotPosts[i].title %></span>
+                </a>
+            </li>
             <%}%>
         </ul>
-    <%}%>
+        <%}%>
+    </div>
 </div>
-</div>
-	</body>
+</body>
 </html>
 
 <script type="text/javascript">

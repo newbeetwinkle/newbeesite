@@ -63,6 +63,12 @@ body {
     height: 20px;
 }
 
+.post_category{
+    float: right;
+    color: gray;
+    margin-top: 10px;
+}
+
 .post_view_count_main{
     color: gray;
     height: 20px;
